@@ -4,6 +4,7 @@ secrets.xml
 google-services.json
 local.properties
 
+build/
 .gradle/
 .idea/
 
