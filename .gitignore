@@ -2,3 +2,9 @@
 
 secrets.xml
 google-services.json
+local.properties
+
+.gradle/
+.idea/
+
+*.iml
