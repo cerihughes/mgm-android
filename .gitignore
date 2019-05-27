@@ -1,22 +1,4 @@
 .DS_Store
 
-build/
-DerivedData/
-
-**/xcuserdata
-
-Secrets.txt
-Secret.plist
-ios/MusicGeekMonthlySwift/Carthage
-
-server/mgm-gcp/out/
-server/mgm-gcp/target/
-server/mgm-gcp/.idea/modules.xml
-workspace.xml
-usage.statistics.xml
-tasks.xml
-*.iml
-
-Secrets.java
-android/app/src/main/res/values/secrets.xml
-android/app/google-services.json
+secrets.xml
+google-services.json
