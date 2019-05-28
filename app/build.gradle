@@ -3,7 +3,7 @@ def getGitRevision = { ->
         def stdout = new ByteArrayOutputStream()
         exec {
             standardOutput = stdout
-            commandLine 'git', 'rev-list', '--first-parent', '--count', 'master'
+            commandLine 'git', 'rev-list', '--first-parent', '--count', 'HEAD'
         }
         println("Building revision #" + stdout)
         return stdout.toString("ASCII").trim() as Integer
