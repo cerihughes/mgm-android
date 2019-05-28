@@ -24,6 +24,6 @@ class LocalDataSourceImpl(context: Context): LocalDataSource {
     override fun persistRemoteData(remoteData: String): Boolean {
         val editor = sharedPreferences.edit()
         editor.putString(PREFERENCES_KEY, remoteData)
-        return  editor.commit()
+        return editor.commit()
     }
 }
