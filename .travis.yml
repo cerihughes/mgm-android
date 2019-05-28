@@ -4,10 +4,10 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools;28.0.3
+    - build-tools-28.0.3
     - android-19 # App's lowest API support level
-    - android-28
-    - sys-img-armeabi-v7a-android-19
+    - android-28 # App's highest API support level
+    - sys-img-armeabi-v7a-android-19 # Test against the API 19 sim
 
 before_script:
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a -c 100M
