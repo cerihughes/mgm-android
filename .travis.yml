@@ -6,6 +6,7 @@ android:
     - platform-tools
     - android-28
     - sys-img-x86-android-28
+    - sys-img-armeabi-v7a-android-28
 
 before_script:
   - android list targets
