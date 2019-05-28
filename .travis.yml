@@ -5,7 +5,10 @@ android:
     - build-tools-28.0.3
     - tools
     - platform-tools
+    - extra-google-m2repository
+    - extra-android-m2repository
     - android-28
+    - emulator
     - sys-img-x86-android-28
 
 env:
@@ -13,8 +16,6 @@ env:
     - export ANDROID_SDK_ROOT=/usr/local/android-sdk
 
 before_script:
-  - sdkmanager tools
-  - sdkmanager "system-images;android-28;default;x86"
   - avdmanager create -n test -k "system-images;android-28;default;x86" -c 100M
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
