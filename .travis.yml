@@ -2,27 +2,25 @@ language: android
 
 android:
   components:
-    - build-tools-28.0.3
     - tools
     - platform-tools
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - android-25
+    - android-19
+    - sys-img-armeabi-v7a-android-19
 
-env:
-  global:
-    - export ANDROID_SDK_ROOT=/opt/android
-
-before_install:
-  - mkdir -p $ANDROID_SDK_ROOT
-  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "tools"
-  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "build-tools;28.0.3"
-  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "extras;android;m2repository"
-  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "system-images;android-25;default;armeabi-v7a"
-  - export PATH=${ANDROID_SDK_ROOT}/tools/bin:$PATH
+#env:
+#  global:
+#    - export ANDROID_SDK_ROOT=/opt/android
+#
+#before_install:
+#  - mkdir -p $ANDROID_SDK_ROOT
+#  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "tools"
+#  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "build-tools;28.0.3"
+#  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "extras;android;m2repository"
+#  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "system-images;android-25;default;armeabi-v7a"
+#  - export PATH=${ANDROID_SDK_ROOT}/tools/bin:$PATH
 
 before_script:
-  - echo no | avdmanager create avd -n test -k "system-images;android-25;default;armeabi-v7a" -c 100M
+  - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a -c 100M
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
