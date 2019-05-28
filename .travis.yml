@@ -20,11 +20,11 @@ before_install:
   - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "tools"
   - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "build-tools;28.0.3"
   - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "extras;android;m2repository"
-  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "system-images;android-28;default;x86"
+  - yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "system-images;android-28;default;armeabi-v7a"
   - export PATH=${ANDROID_SDK_ROOT}/tools/bin:$PATH
 
 before_script:
-  - echo no | avdmanager create avd -n test -k "system-images;android-28;default;x86" -c 100M
+  - echo no | avdmanager create avd -n test -k "system-images;android-28;default;armeabi-v7a" -c 100M
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
