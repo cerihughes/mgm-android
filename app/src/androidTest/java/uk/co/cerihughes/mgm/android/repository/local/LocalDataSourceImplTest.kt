@@ -1,5 +1,6 @@
 package uk.co.cerihughes.mgm.android.repository.local
 
+import android.preference.PreferenceManager
 import android.support.test.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -11,11 +12,15 @@ import uk.co.cerihughes.mgm.android.repository.local.LocalDataSourceImpl
 
 class LocalDataSourceImplTest {
 
-    private lateinit var localDataSource: LocalDataSourceImpl
+    private lateinit var localDataSource: LocalDataSource
 
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getTargetContext()
+        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        editor.clear()
+        editor.commit()
+
         localDataSource = LocalDataSourceImpl(context)
     }
 
