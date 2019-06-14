@@ -1,8 +1,8 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel

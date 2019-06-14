@@ -1,8 +1,8 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import android.content.Intent
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso

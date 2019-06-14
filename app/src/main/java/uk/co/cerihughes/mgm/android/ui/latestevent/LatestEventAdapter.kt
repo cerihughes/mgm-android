@@ -1,10 +1,10 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import android.content.Intent
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions

@@ -1,6 +1,6 @@
 package uk.co.cerihughes.mgm.android.ui
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import android.os.Handler
 import android.os.Looper
 import uk.co.cerihughes.mgm.android.model.Event

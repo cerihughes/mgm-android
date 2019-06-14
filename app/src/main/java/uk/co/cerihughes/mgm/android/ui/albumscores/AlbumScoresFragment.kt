@@ -1,12 +1,13 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_album_scores.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import uk.co.cerihughes.mgm.android.R
@@ -24,7 +25,7 @@ class AlbumScoresFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val recyclerView = view?.recycler_view ?: return
-        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(dividerItemDecoration)
