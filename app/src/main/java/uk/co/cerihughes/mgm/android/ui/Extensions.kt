@@ -24,6 +24,6 @@ fun PackageManager.isSpotifyInstalled(): Boolean {
 
 fun Intent.launchSpotify(context: Context, spotifyURL: String) {
     data = Uri.parse(spotifyURL)
-    putExtra(Intent.EXTRA_REFERRER, Uri.parse("android-app://" + context.getPackageName()))
+    putExtra(Intent.EXTRA_REFERRER, Uri.parse("android-app://" + context.packageName))
     context.startActivity(this)
 }

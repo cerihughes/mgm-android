@@ -1,7 +1,6 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import uk.co.cerihughes.mgm.android.model.Album
-import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
@@ -18,19 +17,21 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
 
     fun isLoaded(): Boolean = allAlbums.size > 0
 
-    override fun setEvents(events: List<Event>) {
-        classicAlbums = events.mapNotNull { it.classicAlbum }
-            .filter { it.score != null }
-            .sortedWith(comparator)
+    init {
+        mutableEvents.observeForever {
+            classicAlbums = it.mapNotNull { it.classicAlbum }
+                .filter { it.score != null }
+                .sortedWith(comparator)
 
-        newAlbums = events.mapNotNull { it.newAlbum }
-            .filter { it.score != null }
-            .sortedWith(comparator)
+            newAlbums = it.mapNotNull { it.newAlbum }
+                .filter { it.score != null }
+                .sortedWith(comparator)
 
-        allAlbums = (classicAlbums + newAlbums).sortedWith(comparator)
+            allAlbums = (classicAlbums + newAlbums).sortedWith(comparator)
 
-        val positions = calculatePositions(allAlbums)
-        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, index, positions.get(index)) }
+            val positions = calculatePositions(allAlbums)
+            scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions.get(index)) }
+        }
     }
 
     fun numberOfScores(): Int {

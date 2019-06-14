@@ -1,5 +1,6 @@
 package uk.co.cerihughes.mgm.android.di
 
+import io.realm.Realm
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -16,10 +17,16 @@ import uk.co.cerihughes.mgm.android.ui.latestevent.LatestEventViewModel
 val appModule = module {
 
     // single instance of RemoteDataSource
-    single<RemoteDataSource> { RemoteDataSourceImpl() }
+    single<RemoteDataSource> { RemoteDataSourceImpl(androidContext()) }
+
+    // single instance of Realm
+    single<Realm> {
+        Realm.init(androidContext())
+        Realm.getDefaultInstance()
+    }
 
     // single instance of LocalDataSource
-    single<LocalDataSource> { LocalDataSourceImpl(androidContext()) }
+    single<LocalDataSource> { LocalDataSourceImpl(get()) }
 
     // single instance of Repository
     single<Repository> { RepositoryImpl(get(), get()) }

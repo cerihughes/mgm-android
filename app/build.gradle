@@ -18,6 +18,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
@@ -26,6 +28,7 @@ android {
         applicationId "uk.co.cerihughes.mgm.android"
         minSdkVersion 19
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode revision
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -44,12 +47,15 @@ android {
 dependencies {
     // Top level dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(path: ':remoteapi')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Architecture dependencies
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'org.koin:koin-core:1.0.2'
-    implementation 'org.koin:koin-android-viewmodel:1.0.2'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     // Android UI dependencies
     implementation 'androidx.appcompat:appcompat:1.0.0'
@@ -67,8 +73,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
     // Networking dependencies
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "org.threeten:threetenbp:$threeten_version"
+    implementation "com.google.code.gson:gson:$gson_version"
 
     // Analytics dependencies
     implementation 'com.google.firebase:firebase-core:16.0.9'
@@ -76,9 +82,10 @@ dependencies {
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.koin:koin-test:1.0.2'
+    testImplementation "org.koin:koin-test:$koin_version"
 
-    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
 }
 
 apply plugin: 'com.google.gms.google-services'

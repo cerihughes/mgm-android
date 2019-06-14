@@ -1,14 +1,9 @@
 package uk.co.cerihughes.mgm.android.repository.local
 
-import android.preference.PreferenceManager
-import androidx.test.InstrumentationRegistry
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import org.junit.Before
-import org.junit.Test
-import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.repository.GsonFactory
-import uk.co.cerihughes.mgm.android.repository.local.LocalDataSourceImpl
+
 
 class LocalDataSourceImplTest {
 
@@ -16,24 +11,12 @@ class LocalDataSourceImplTest {
 
     @Before
     fun setUp() {
-        val context = InstrumentationRegistry.getTargetContext()
-        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        editor.clear()
-        editor.commit()
+        val config = RealmConfiguration.Builder()
+            .name("LocalDataSourceImplTest.realm")
+            .inMemory()
+            .build()
+        val realm = Realm.getInstance(config)
 
-        localDataSource = LocalDataSourceImpl(context)
-    }
-
-    @Test
-    fun testDataLoader() {
-        val localData = localDataSource.getLocalData()!!
-        val events = GsonFactory.createGson().fromJson(localData , Array<Event>::class.java).toList()
-        assertEquals(60, events.size)
-
-        var event = events.first()
-        assertEquals(2, event.number)
-        assertEquals("Songs In The Key Of Life", event.classicAlbum!!.name)
-        assertEquals("Ventriloquizzing", event.newAlbum!!.name)
-        assertNull(event.playlist)
+        localDataSource = LocalDataSourceImpl(realm)
     }
 }

@@ -1,29 +1,28 @@
 package uk.co.cerihughes.mgm.android.repository.remote
 
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import android.content.Context
+import uk.co.cerihughes.mgm.android.R
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.api.DefaultApi
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.EventApiModel
+import uk.co.cerihughes.mgm.android.repository.GsonFactory
 
-class RemoteDataSourceImpl : RemoteDataSource {
+class RemoteDataSourceImpl(context: Context) : RemoteDataSource {
 
-    override fun getRemoteData(callback: RemoteDataSource.GetRemoteDataCallback) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://mgm-gcp.appspot.com")
-            .build()
+    private val api = DefaultApi()
+    private val fallbackData: String
+    private val gson = GsonFactory.createGson()
 
-        val service = retrofit.create<RetrofitEventService>(RetrofitEventService::class.java)
-        service.getRemoteEvents().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                response.body()?.string()?.let {
-                    callback.onDataLoaded(it)
-                } ?: callback.onDataNotAvailable()
-            }
+    init {
+        fallbackData = context.resources.openRawResource(R.raw.mgm).bufferedReader().use { it.readText() }
+    }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                callback.onDataNotAvailable()
-            }
-        })
+    override fun getRemoteData(callback: RemoteDataSource.GetRemoteDataCallback<Array<EventApiModel>>) {
+        try {
+            val events = api.events()
+            callback.onDataLoaded(events)
+        } catch (e: Exception) {
+            val events = gson.fromJson(fallbackData, Array<EventApiModel>::class.java)
+            callback.onDataLoaded(events)
+        }
     }
 }

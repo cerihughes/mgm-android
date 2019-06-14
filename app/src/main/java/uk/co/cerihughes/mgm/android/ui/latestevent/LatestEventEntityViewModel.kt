@@ -17,12 +17,7 @@ class LatestEventEntityViewModel(
 
     companion object {
         fun createEntityViewModel(album: Album): LatestEventEntityViewModel {
-            val entityType = when (album.type) {
-                AlbumType.CLASSIC -> "CLASSIC ALBUM"
-                AlbumType.NEW -> "NEW ALBUM"
-                else -> "ALBUM"
-            }
-
+            val entityType = if (album.isClassic) "CLASSIC ALBUM" else "NEW ALBUM"
             val spotifyURL = album.spotifyId?.let {
                 SpotifyURLGenerator.createSpotifyAlbumURL(it)
             }
@@ -31,7 +26,7 @@ class LatestEventEntityViewModel(
         }
 
         fun createEntityViewModel(playlist: Playlist): LatestEventEntityViewModel {
-            val spotifyURL = playlist.spotifyId?.let {
+            val spotifyURL = playlist.spotifyId.let {
                 SpotifyURLGenerator.createSpotifyPlaylistURL(it)
             }
 

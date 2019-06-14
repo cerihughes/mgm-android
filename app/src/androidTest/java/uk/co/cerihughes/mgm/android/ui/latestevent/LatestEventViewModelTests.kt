@@ -1,36 +1,36 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
-import org.junit.After
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
-import org.koin.standalone.inject
-import org.koin.test.KoinTest
-import org.koin.test.declareMock
-import uk.co.cerihughes.mgm.android.di.appModule
 import uk.co.cerihughes.mgm.android.model.createEvent
-import uk.co.cerihughes.mgm.android.repository.Repository
+import uk.co.cerihughes.mgm.android.repository.RepositoryFake
+import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
+import uk.co.cerihughes.mgm.android.ui.loadDataSync
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
-class LatestEventViewModelTests: KoinTest {
-    val viewModel: LatestEventViewModel by inject()
+class LatestEventViewModelTests {
+    lateinit var repository: RepositoryFake
+    lateinit var viewModel: LatestEventViewModel
+
+    @Rule
+    @JvmField
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        startKoin(listOf(appModule))
-        declareMock<Repository>()
-    }
-
-    @After
-    fun tearDown() {
-        stopKoin()
+        repository = RepositoryFake()
+        viewModel = LatestEventViewModel(repository)
     }
 
     @Test
     fun entitiesAndLocation() {
         val event = createEvent(1, 8.0f, 7.0f, locationName = "Location")
-        viewModel.setEvents(listOf(event))
+        repository.getEventsLiveData.value = listOf(event)
+        viewModel.loadDataSync()
 
         Assert.assertEquals(5, viewModel.numberOfItems())
         Assert.assertEquals(2, viewModel.numberOfEntites())
@@ -45,7 +45,8 @@ class LatestEventViewModelTests: KoinTest {
     @Test
     fun entitiesNoLocation() {
         val event = createEvent(1, 8.0f, 7.0f)
-        viewModel.setEvents(listOf(event))
+        repository.getEventsLiveData.value = listOf(event)
+        viewModel.loadDataSync()
 
         Assert.assertEquals(3, viewModel.numberOfItems())
         Assert.assertEquals(2, viewModel.numberOfEntites())

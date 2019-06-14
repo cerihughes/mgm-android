@@ -1,32 +1,29 @@
 package uk.co.cerihughes.mgm.android.ui
 
 import android.os.Handler
-import android.os.Looper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.Repository
 
 abstract class RemoteDataLoadingViewModel(private val repository: Repository) : ViewModel() {
 
-    private val backgroundThreadHandler = Handler()
-    private val mainThreadHandler = Handler(Looper.getMainLooper())
+    protected val mutableEvents = MutableLiveData<List<Event>>(ArrayList())
 
     interface LoadDataCallback {
         fun onDataLoaded()
     }
 
     fun loadData(callback: LoadDataCallback) {
-        backgroundThreadHandler.post {
-            repository.getEvents(object : Repository.GetEventsCallback {
-                override fun onEventsLoaded(data: List<Event>) {
-                    mainThreadHandler.post {
-                        setEvents(data)
-                        callback.onDataLoaded()
-                    }
-                }
-            })
-        }
-    }
+        repository.getEvents(object : Repository.GetOperationCallback<LiveData<List<Event>>> {
+            override fun onLocalData(data: LiveData<List<Event>>) {
+                mutableEvents.postValue(data.value)
+            }
 
-    abstract fun setEvents(events: List<Event>)
+            override fun onRemoteLoad() {
+                callback.onDataLoaded()
+            }
+        })
+    }
 }

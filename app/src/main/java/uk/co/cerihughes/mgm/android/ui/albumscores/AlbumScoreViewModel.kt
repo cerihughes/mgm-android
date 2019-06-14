@@ -8,7 +8,7 @@ import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel
 import uk.co.cerihughes.mgm.android.ui.SpotifyURLGenerator
 
-class AlbumScoreViewModel(private val album: Album, private val index: Int, private val position: String) :
+class AlbumScoreViewModel(private val album: Album, private val position: String) :
     AlbumArtViewModel(album.images) {
 
     private enum class AlbumAward(@DrawableRes val drawable: Int, @ColorInt val colour: Int) {
