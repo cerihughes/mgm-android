@@ -6,9 +6,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.repository.GsonFactory
-import uk.co.cerihughes.mgm.android.repository.local.LocalDataSourceImpl
 
 class LocalDataSourceImplTest {
 
@@ -26,8 +23,7 @@ class LocalDataSourceImplTest {
 
     @Test
     fun testDataLoader() {
-        val localData = localDataSource.getLocalData()!!
-        val events = GsonFactory.createGson().fromJson(localData , Array<Event>::class.java).toList()
+        val events = localDataSource.getEvents()
         assertEquals(60, events.size)
 
         var event = events.first()

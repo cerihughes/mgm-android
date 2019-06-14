@@ -1,10 +1,10 @@
 package uk.co.cerihughes.mgm.android.repository.remote
 
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
+import uk.co.cerihughes.mgm.android.model.Event
 
 interface RetrofitEventService {
     @GET("mgm.json")
-    fun getRemoteEvents(): Call<ResponseBody>
+    fun getRemoteEvents(): Call<List<Event>>
 }
