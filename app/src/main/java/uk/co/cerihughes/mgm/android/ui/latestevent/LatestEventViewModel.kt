@@ -24,8 +24,8 @@ class LatestEventViewModel(repository: Repository) : RemoteDataLoadingViewModel(
 
     override fun setEvents(events: List<Event>) {
         // Remove events without albums, then apply descending sort by ID
-        val sortedEvents =
-            events.filter { it.classicAlbum != null && it.newAlbum != null }.sortedByDescending { it.number }
+        val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }
+            .sortedByDescending { it.number }
 
         if (sortedEvents.size > 0) {
             var entityViewModels: MutableList<LatestEventEntityViewModel> = mutableListOf()
