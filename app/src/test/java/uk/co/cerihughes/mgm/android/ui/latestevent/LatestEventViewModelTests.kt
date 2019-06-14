@@ -1,30 +1,19 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
-import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
-import org.koin.standalone.inject
-import org.koin.test.KoinTest
-import org.koin.test.declareMock
-import uk.co.cerihughes.mgm.android.di.appModule
 import uk.co.cerihughes.mgm.android.model.createEvent
-import uk.co.cerihughes.mgm.android.repository.Repository
+import uk.co.cerihughes.mgm.android.repository.RepositoryFake
 
-class LatestEventViewModelTests: KoinTest {
-    val viewModel: LatestEventViewModel by inject()
+class LatestEventViewModelTests {
+    lateinit var repository: RepositoryFake
+    lateinit var viewModel: LatestEventViewModel
 
     @Before
     fun setUp() {
-        startKoin(listOf(appModule))
-        declareMock<Repository>()
-    }
-
-    @After
-    fun tearDown() {
-        stopKoin()
+        repository = RepositoryFake()
+        viewModel = LatestEventViewModel(repository)
     }
 
     @Test
