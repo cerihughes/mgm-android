@@ -6,7 +6,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class RemoteDataSourceImpl: RemoteDataSource {
+class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getRemoteData(callback: RemoteDataSource.GetRemoteDataCallback) {
         val retrofit = Retrofit.Builder()

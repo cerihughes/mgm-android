@@ -5,7 +5,7 @@ import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 import java.text.DateFormat
 
-class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(repository) {
+class LatestEventViewModel(repository: Repository) : RemoteDataLoadingViewModel(repository) {
 
     companion object {
         private val dateFormatter = DateFormat.getDateInstance(DateFormat.LONG)
@@ -24,7 +24,8 @@ class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(r
 
     override fun setEvents(events: List<Event>) {
         // Remove events without albums, then apply descending sort by ID
-        val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }.sortedByDescending { it.number }
+        val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }
+            .sortedByDescending { it.number }
 
         if (sortedEvents.size > 0) {
             var entityViewModels: MutableList<LatestEventEntityViewModel> = mutableListOf()
@@ -102,7 +103,7 @@ class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(r
     }
 
     fun eventEntityViewModel(position: Int): LatestEventEntityViewModel? {
-        val entityIndex = if(isLocationAvailable()) position - 3 else position - 1
+        val entityIndex = if (isLocationAvailable()) position - 3 else position - 1
         try {
             return eventEntityViewModels[entityIndex]
         } catch (e: IndexOutOfBoundsException) {

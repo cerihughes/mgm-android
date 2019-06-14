@@ -1,10 +1,10 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import android.content.Intent
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -18,7 +18,8 @@ import uk.co.cerihughes.mgm.android.ui.inflate
 import uk.co.cerihughes.mgm.android.ui.isSpotifyInstalled
 import uk.co.cerihughes.mgm.android.ui.launchSpotify
 
-class LatestEventAdapter (private val viewModel: LatestEventViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return viewModel.itemType(position).rawValue
@@ -66,14 +67,14 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
         return viewModel.numberOfItems()
     }
 
-    class LatestEventTitleItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class LatestEventTitleItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(title: String) {
             itemView.textView.text = title
         }
     }
 
-    class LatestEventLocationItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class LatestEventLocationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(viewModel: LatestEventViewModel) {
             viewModel.mapReference()?.let {
@@ -90,7 +91,8 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
         }
     }
 
-    class LatestEventEntityItemViewHolder(private val viewModel: LatestEventViewModel, itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class LatestEventEntityItemViewHolder(private val viewModel: LatestEventViewModel, itemView: View) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         fun bind(viewModel: LatestEventEntityViewModel) {
             val largestDimension = itemView.resources.getDimension(R.dimen.latest_event_entity_list_item_height)
@@ -99,7 +101,13 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
                     .load(it)
                     .placeholder(R.drawable.album1)
                     .into(itemView.coverArtIV)
-            } ?: itemView.coverArtIV.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources, R.drawable.album1, null))
+            } ?: itemView.coverArtIV.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    itemView.resources,
+                    R.drawable.album1,
+                    null
+                )
+            )
 
             viewModel.coverArtURL(largestDimension.toInt())?.let {
                 Picasso.get()

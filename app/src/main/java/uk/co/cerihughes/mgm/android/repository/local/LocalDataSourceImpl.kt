@@ -4,7 +4,7 @@ import android.content.Context
 import android.preference.PreferenceManager
 import uk.co.cerihughes.mgm.android.R
 
-class LocalDataSourceImpl(context: Context): LocalDataSource {
+class LocalDataSourceImpl(context: Context) : LocalDataSource {
 
     companion object {
         val PREFERENCES_KEY = "MGM_REMOTE_DATA"

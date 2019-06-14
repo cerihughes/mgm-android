@@ -8,7 +8,7 @@ import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import com.squareup.picasso.Transformation
 
-class BlurTransformation(private val context: Context): Transformation {
+class BlurTransformation(private val context: Context) : Transformation {
     override fun key(): String {
         return "BlurTransformation"
     }
