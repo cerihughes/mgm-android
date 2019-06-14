@@ -7,8 +7,6 @@ import uk.co.cerihughes.mgm.android.repository.remote.RemoteDataSource
 class RepositoryImpl(private val remoteDataSource: RemoteDataSource, private val localDataSource: LocalDataSource) :
     Repository {
 
-    private val gson = GsonFactory.createGson()
-
     private var cachedEvents: List<Event>? = null
 
     override fun getEvents(callback: Repository.GetEventsCallback) {
@@ -18,18 +16,16 @@ class RepositoryImpl(private val remoteDataSource: RemoteDataSource, private val
     }
 
     private fun loadEvents(callback: Repository.GetEventsCallback) {
-        remoteDataSource.getRemoteData(object : RemoteDataSource.GetRemoteDataCallback {
-            override fun onDataLoaded(data: String) {
-                localDataSource.persistRemoteData(data)
-                val events = gson.fromJson(data, Array<Event>::class.java).toList()
-                cachedEvents = events
-                callback.onEventsLoaded(events)
+        remoteDataSource.getRemoteData(object : RemoteDataSource.GetRemoteDataCallback<List<Event>> {
+            override fun onDataLoaded(data: List<Event>) {
+                localDataSource.setEvents(data)
+                cachedEvents = data
+                callback.onEventsLoaded(data)
             }
 
             override fun onDataNotAvailable() {
-                val localData = localDataSource.getLocalData()
-                val events = gson.fromJson(localData, Array<Event>::class.java).toList()
-                callback.onEventsLoaded(events)
+                val localData = localDataSource.getEvents()
+                callback.onEventsLoaded(localData)
             }
         })
     }

@@ -1,11 +1,13 @@
 package uk.co.cerihughes.mgm.android.repository.remote
 
+import uk.co.cerihughes.mgm.android.model.Event
+
 interface RemoteDataSource {
 
-    interface GetRemoteDataCallback {
-        fun onDataLoaded(data: String)
+    interface GetRemoteDataCallback<T> {
+        fun onDataLoaded(data: T)
         fun onDataNotAvailable()
     }
 
-    fun getRemoteData(callback: GetRemoteDataCallback)
+    fun getRemoteData(callback: GetRemoteDataCallback<List<Event>>)
 }

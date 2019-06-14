@@ -1,6 +1,8 @@
 package uk.co.cerihughes.mgm.android.repository.local
 
+import uk.co.cerihughes.mgm.android.model.Event
+
 interface LocalDataSource {
-    fun getLocalData(): String?
-    fun persistRemoteData(remoteData: String): Boolean
+    fun getEvents(): List<Event>
+    fun setEvents(events: List<Event>)
 }
