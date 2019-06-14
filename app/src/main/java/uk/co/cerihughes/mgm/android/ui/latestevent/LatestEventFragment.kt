@@ -42,7 +42,7 @@ class LatestEventFragment : Fragment() {
         val progressBar = view?.progress_loader ?: return
         progressBar.visibility = View.VISIBLE
 
-        viewModel.loadData(object: RemoteDataLoadingViewModel.LoadDataCallback {
+        viewModel.loadData(object : RemoteDataLoadingViewModel.LoadDataCallback {
             override fun onDataLoaded() {
                 val recyclerView = view?.recycler_view ?: return
 

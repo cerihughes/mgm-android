@@ -1,7 +1,7 @@
 package uk.co.cerihughes.mgm.android.ui
 
-import androidx.lifecycle.ViewModel
 import androidx.annotation.DrawableRes
+import androidx.lifecycle.ViewModel
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.model.Image
 

@@ -7,7 +7,13 @@ import uk.co.cerihughes.mgm.android.model.Playlist
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel
 import uk.co.cerihughes.mgm.android.ui.SpotifyURLGenerator
 
-class LatestEventEntityViewModel(images: List<Image>, val entityType: String, val entityName: String, val entityOwner: String, val spotifyURL: String?) : AlbumArtViewModel(images) {
+class LatestEventEntityViewModel(
+    images: List<Image>,
+    val entityType: String,
+    val entityName: String,
+    val entityOwner: String,
+    val spotifyURL: String?
+) : AlbumArtViewModel(images) {
 
     companion object {
         fun createEntityViewModel(album: Album): LatestEventEntityViewModel {
