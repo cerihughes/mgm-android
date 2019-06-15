@@ -9,7 +9,6 @@ import org.junit.Test
 
 class LocalDataSourceImplTest {
 
-    
     private lateinit var localDataSource: LocalDataSource
 
     @Before
