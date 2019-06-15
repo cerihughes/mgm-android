@@ -17,8 +17,8 @@ abstract class RemoteDataLoadingViewModel(private val repository: Repository) : 
 
     fun loadData(callback: LoadDataCallback) {
         backgroundThreadHandler.post {
-            repository.getEvents(object : Repository.GetEventsCallback {
-                override fun onEventsLoaded(data: List<Event>) {
+            repository.getEvents(object : Repository.GetOperationCallback<List<Event>> {
+                override fun onDataLoaded(data: List<Event>) {
                     mainThreadHandler.post {
                         setEvents(data)
                         callback.onDataLoaded()
