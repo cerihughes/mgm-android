@@ -11,9 +11,9 @@ class RepositoryImpl(
     context: Context,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-) :
-    Repository {
+) : Repository {
 
+    private var cachedEvents: List<Event>? = null
     private val fallbackData: String
     private val gson = GsonFactory.createGson()
 
@@ -22,10 +22,17 @@ class RepositoryImpl(
     }
 
     override fun getEvents(callback: Repository.GetOperationCallback<List<Event>>) {
+        cachedEvents?.let {
+            callback.onDataLoaded(it)
+        } ?: loadEvents(callback)
+    }
+
+    private fun loadEvents(callback: Repository.GetOperationCallback<List<Event>>) {
         remoteDataSource.getRemoteData(object : RemoteDataSource.GetRemoteDataCallback<List<EventApiModel>> {
             override fun onDataLoaded(data: List<EventApiModel>) {
                 val models = data.map { it.toDataModel() }
                 localDataSource.addEvents(models)
+                cachedEvents = models
                 callback.onDataLoaded(models)
             }
 
