@@ -7,10 +7,7 @@ import org.junit.Rule
 import org.junit.Test
 import uk.co.cerihughes.mgm.android.model.createEvent
 import uk.co.cerihughes.mgm.android.repository.RepositoryFake
-import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 import uk.co.cerihughes.mgm.android.ui.loadDataSync
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 class LatestEventViewModelTests {
     lateinit var repository: RepositoryFake

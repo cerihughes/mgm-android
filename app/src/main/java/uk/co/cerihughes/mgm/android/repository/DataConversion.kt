@@ -29,7 +29,8 @@ fun LocationApiModel.toDataModel(): Location {
 fun AlbumApiModel.safeImages() = images ?: emptyArray()
 
 fun AlbumApiModel.toDataModel(eventNumber: Int): Album {
-    return Album(type.createId(eventNumber),
+    return Album(
+        type.createId(eventNumber),
         type.toDataModel(),
         spotifyId,
         name,
@@ -50,7 +51,8 @@ fun AlbumApiModel.Type.createId(eventNumber: Int): String {
 fun PlaylistApiModel.safeImages() = images ?: emptyArray()
 
 fun PlaylistApiModel.toDataModel(): Playlist {
-    return Playlist(spotifyId,
+    return Playlist(
+        spotifyId,
         name,
         owner,
         safeImages().map { it.toDataModel() }.asRealmList()

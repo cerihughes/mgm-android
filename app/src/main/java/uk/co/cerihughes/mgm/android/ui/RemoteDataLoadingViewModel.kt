@@ -1,6 +1,5 @@
 package uk.co.cerihughes.mgm.android.ui
 
-import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

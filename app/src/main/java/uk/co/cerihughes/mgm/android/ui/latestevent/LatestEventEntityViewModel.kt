@@ -1,7 +1,6 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import uk.co.cerihughes.mgm.android.model.Album
-import uk.co.cerihughes.mgm.android.model.AlbumType
 import uk.co.cerihughes.mgm.android.model.Image
 import uk.co.cerihughes.mgm.android.model.Playlist
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel
