@@ -23,8 +23,10 @@ class AlbumScoresViewModelTests {
         val event3 = createEvent(3, 10.0f, 9.0f)
         viewModel.setEvents(listOf(event1, event2, event3))
 
-        assert(positions = listOf("1", "2", "3", "4", "5", "6"),
-            ratings = listOf("10.0", "9.0", "8.0", "7.0", "6.0", "5.0"))
+        assert(
+            positions = listOf("1", "2", "3", "4", "5", "6"),
+            ratings = listOf("10.0", "9.0", "8.0", "7.0", "6.0", "5.0")
+        )
     }
 
     @Test
@@ -34,8 +36,10 @@ class AlbumScoresViewModelTests {
         val event3 = createEvent(3, 10.0f, 9.5f)
         viewModel.setEvents(listOf(event1, event2, event3))
 
-        assert(positions = listOf("1", "1", "1", "4", "4", "4"),
-            ratings = listOf("10.0", "10.0", "10.0", "9.5", "9.5", "9.5"))
+        assert(
+            positions = listOf("1", "1", "1", "4", "4", "4"),
+            ratings = listOf("10.0", "10.0", "10.0", "9.5", "9.5", "9.5")
+        )
     }
 
     @Test
@@ -47,8 +51,10 @@ class AlbumScoresViewModelTests {
         val event5 = createEvent(5, 6.6f, 6.6f)
         viewModel.setEvents(listOf(event1, event2, event3, event4, event5))
 
-        assert(positions = listOf("1", "1", "1", "1", "5", "5", "5", "8", "8", "10"),
-            ratings = listOf("6.6", "6.6", "6.6", "6.6", "5.5", "5.5", "5.5", "4.4", "4.4", "3.3"))
+        assert(
+            positions = listOf("1", "1", "1", "1", "5", "5", "5", "8", "8", "10"),
+            ratings = listOf("6.6", "6.6", "6.6", "6.6", "5.5", "5.5", "5.5", "4.4", "4.4", "3.3")
+        )
     }
 
     @Test
@@ -58,8 +64,10 @@ class AlbumScoresViewModelTests {
         val event3 = createEventByAlbumName(3, "CC", "ff")
         viewModel.setEvents(listOf(event1, event2, event3))
 
-        assert(positions = listOf("1", "1", "1", "1", "1", "1"),
-            albumNames = listOf("AA", "bb", "CC", "dd", "EE", "ff"))
+        assert(
+            positions = listOf("1", "1", "1", "1", "1", "1"),
+            albumNames = listOf("AA", "bb", "CC", "dd", "EE", "ff")
+        )
     }
 
     @Test
@@ -69,8 +77,10 @@ class AlbumScoresViewModelTests {
         val event3 = createEventByAlbumArtist(3, "aDEe3", "AdeE4")
         viewModel.setEvents(listOf(event1, event2, event3))
 
-        assert(positions = listOf("1", "1", "1", "1", "1", "1"),
-            artistNames = listOf("Aa", "ab", "ACa1", "ACA2", "aDEe3", "AdeE4"))
+        assert(
+            positions = listOf("1", "1", "1", "1", "1", "1"),
+            artistNames = listOf("Aa", "ab", "ACa1", "ACA2", "aDEe3", "AdeE4")
+        )
     }
 
     @Test
@@ -95,16 +105,20 @@ class AlbumScoresViewModelTests {
 
         viewModel.setEvents(listOf(event1, event2, event3, event4, event5))
 
-        assert(positions = listOf("1", "1", "1", "4", "4", "4", "7", "7", "9", "9"),
+        assert(
+            positions = listOf("1", "1", "1", "4", "4", "4", "7", "7", "9", "9"),
             ratings = listOf("10.0", "10.0", "10.0", "9.0", "9.0", "9.0", "8.0", "8.0", "7.0", "7.0"),
             albumNames = listOf("A0", "A1", "A1", "B2", "B2", "B2", "aaa", "zzz", "1", "2"),
-            artistNames = listOf("ZZZ", "A2", "Z1", "xxx", "yyy", "zzz", "zzz", "aaa", "Art", "Art"))
+            artistNames = listOf("ZZZ", "A2", "Z1", "xxx", "yyy", "zzz", "zzz", "aaa", "Art", "Art")
+        )
     }
 
-    private fun assert(positions: List<String>,
-                       ratings: List<String>? = null,
-                       albumNames: List<String>? = null,
-                       artistNames: List<String>? = null) {
+    private fun assert(
+        positions: List<String>,
+        ratings: List<String>? = null,
+        albumNames: List<String>? = null,
+        artistNames: List<String>? = null
+    ) {
 
         assertEquals(positions.size, viewModel.numberOfScores())
         for (index in 0 until viewModel.numberOfScores()) {

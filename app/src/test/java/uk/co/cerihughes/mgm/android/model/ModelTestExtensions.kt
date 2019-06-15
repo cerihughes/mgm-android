@@ -6,13 +6,23 @@ fun createEvent(number: Int, classicAlbumScore: Float, newAlbumScore: Float, loc
     return createEvent(number, classicAlbum, newAlbum, locationName)
 }
 
-fun createEventByAlbumName(number: Int, classicAlbumName: String, newAlbumName: String, locationName: String? = null): Event {
+fun createEventByAlbumName(
+    number: Int,
+    classicAlbumName: String,
+    newAlbumName: String,
+    locationName: String? = null
+): Event {
     val classicAlbum = createAlbum(AlbumType.CLASSIC, name = classicAlbumName)
     val newAlbum = createAlbum(AlbumType.NEW, name = newAlbumName)
     return createEvent(number, classicAlbum, newAlbum, locationName)
 }
 
-fun createEventByAlbumArtist(number: Int, classicAlbumArtist: String, newAlbumArtist: String, locationName: String? = null): Event {
+fun createEventByAlbumArtist(
+    number: Int,
+    classicAlbumArtist: String,
+    newAlbumArtist: String,
+    locationName: String? = null
+): Event {
     val classicAlbum = createAlbum(AlbumType.CLASSIC, artist = classicAlbumArtist)
     val newAlbum = createAlbum(AlbumType.NEW, artist = newAlbumArtist)
     return createEvent(number, classicAlbum, newAlbum, locationName)
