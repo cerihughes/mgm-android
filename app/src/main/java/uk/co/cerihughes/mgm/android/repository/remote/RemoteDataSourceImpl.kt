@@ -4,6 +4,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import uk.co.cerihughes.mgm.android.model.Event
 
 class RemoteDataSourceImpl : RemoteDataSource {
@@ -11,6 +12,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun getRemoteData(callback: RemoteDataSource.GetRemoteDataCallback<List<Event>>) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://mgm-gcp.appspot.com")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val service = retrofit.create<RetrofitEventService>(RetrofitEventService::class.java)

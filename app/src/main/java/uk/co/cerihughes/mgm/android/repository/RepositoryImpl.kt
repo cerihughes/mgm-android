@@ -4,8 +4,10 @@ import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.local.LocalDataSource
 import uk.co.cerihughes.mgm.android.repository.remote.RemoteDataSource
 
-class RepositoryImpl(private val remoteDataSource: RemoteDataSource, private val localDataSource: LocalDataSource) :
-    Repository {
+class RepositoryImpl(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
+) : Repository {
 
     private var cachedEvents: List<Event>? = null
 

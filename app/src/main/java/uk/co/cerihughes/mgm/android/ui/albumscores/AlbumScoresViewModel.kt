@@ -30,7 +30,7 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
         allAlbums = (classicAlbums + newAlbums).sortedWith(comparator)
 
         val positions = calculatePositions(allAlbums)
-        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, index, positions.get(index)) }
+        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions.get(index)) }
     }
 
     fun numberOfScores(): Int {
