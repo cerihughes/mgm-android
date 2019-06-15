@@ -17,7 +17,7 @@ import uk.co.cerihughes.mgm.android.ui.latestevent.LatestEventViewModel
 val appModule = module {
 
     // single instance of RemoteDataSource
-    single<RemoteDataSource> { RemoteDataSourceImpl(androidContext()) }
+    single<RemoteDataSource> { RemoteDataSourceImpl() }
 
     // single instance of Realm
     single<Realm> {
@@ -29,7 +29,7 @@ val appModule = module {
     single<LocalDataSource> { LocalDataSourceImpl(get()) }
 
     // single instance of Repository
-    single<Repository> { RepositoryImpl(get(), get()) }
+    single<Repository> { RepositoryImpl(androidContext(), get(), get()) }
 
     viewModel { MainViewModel() }
     viewModel { LatestEventViewModel(get()) }

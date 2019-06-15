@@ -4,7 +4,6 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.junit.Before
 
-
 class LocalDataSourceImplTest {
 
     private lateinit var localDataSource: LocalDataSource

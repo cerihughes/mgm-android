@@ -6,7 +6,8 @@ interface RemoteDataSource {
 
     interface GetRemoteDataCallback<T> {
         fun onDataLoaded(data: T)
+        fun onDataNotAvailable()
     }
 
-    fun getRemoteData(callback: GetRemoteDataCallback<Array<EventApiModel>>)
+    fun getRemoteData(callback: GetRemoteDataCallback<List<EventApiModel>>)
 }

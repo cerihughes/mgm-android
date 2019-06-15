@@ -1,21 +1,14 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import uk.co.cerihughes.mgm.android.model.createEvent
 import uk.co.cerihughes.mgm.android.repository.RepositoryFake
-import uk.co.cerihughes.mgm.android.ui.loadDataSync
 
 class LatestEventViewModelTests {
     lateinit var repository: RepositoryFake
     lateinit var viewModel: LatestEventViewModel
-
-    @Rule
-    @JvmField
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
@@ -26,8 +19,7 @@ class LatestEventViewModelTests {
     @Test
     fun entitiesAndLocation() {
         val event = createEvent(1, 8.0f, 7.0f, locationName = "Location")
-        repository.getEventsLiveData.value = listOf(event)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event))
 
         Assert.assertEquals(5, viewModel.numberOfItems())
         Assert.assertEquals(2, viewModel.numberOfEntites())
@@ -42,8 +34,7 @@ class LatestEventViewModelTests {
     @Test
     fun entitiesNoLocation() {
         val event = createEvent(1, 8.0f, 7.0f)
-        repository.getEventsLiveData.value = listOf(event)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event))
 
         Assert.assertEquals(3, viewModel.numberOfItems())
         Assert.assertEquals(2, viewModel.numberOfEntites())

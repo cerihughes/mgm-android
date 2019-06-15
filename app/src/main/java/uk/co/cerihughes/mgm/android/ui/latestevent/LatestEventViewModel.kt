@@ -22,30 +22,27 @@ class LatestEventViewModel(repository: Repository) : RemoteDataLoadingViewModel(
 
     fun isLoaded(): Boolean = event != null
 
-    init {
-        mutableEvents.observeForever {
-            val it = it ?: return@observeForever
-            // Remove events without albums, then apply descending sort by ID
-            val sortedEvents =
-                it.filter { it.classicAlbum != null && it.newAlbum != null }.sortedByDescending { it.number }
+    override fun setEvents(events: List<Event>) {
+        // Remove events without albums, then apply descending sort by ID
+        val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }
+            .sortedByDescending { it.number }
 
-            if (sortedEvents.size > 0) {
-                var entityViewModels: MutableList<LatestEventEntityViewModel> = mutableListOf()
-                var event = sortedEvents.first()
+        if (sortedEvents.size > 0) {
+            var entityViewModels: MutableList<LatestEventEntityViewModel> = mutableListOf()
+            var event = sortedEvents.first()
 
-                event.classicAlbum?.let {
-                    entityViewModels.add(LatestEventEntityViewModel.createEntityViewModel(it))
-                }
-                event.newAlbum?.let {
-                    entityViewModels.add(LatestEventEntityViewModel.createEntityViewModel(it))
-                }
-                event.playlist?.let {
-                    entityViewModels.add(LatestEventEntityViewModel.createEntityViewModel(it))
-                }
-
-                this.event = event
-                this.eventEntityViewModels = entityViewModels
+            event.classicAlbum?.let {
+                entityViewModels.add(LatestEventEntityViewModel.createEntityViewModel(it))
             }
+            event.newAlbum?.let {
+                entityViewModels.add(LatestEventEntityViewModel.createEntityViewModel(it))
+            }
+            event.playlist?.let {
+                entityViewModels.add(LatestEventEntityViewModel.createEntityViewModel(it))
+            }
+
+            this.event = event
+            this.eventEntityViewModels = entityViewModels
         }
     }
 

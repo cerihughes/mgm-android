@@ -1,21 +1,14 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import uk.co.cerihughes.mgm.android.model.*
 import uk.co.cerihughes.mgm.android.repository.RepositoryFake
-import uk.co.cerihughes.mgm.android.ui.loadDataSync
 
 class AlbumScoresViewModelTests {
     lateinit var repository: RepositoryFake
     lateinit var viewModel: AlbumScoresViewModel
-
-    @Rule
-    @JvmField
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
@@ -28,8 +21,7 @@ class AlbumScoresViewModelTests {
         val event1 = createEvent(1, 8.0f, 7.0f)
         val event2 = createEvent(2, 5.0f, 6.0f)
         val event3 = createEvent(3, 10.0f, 9.0f)
-        repository.getEventsLiveData.value = listOf(event1, event2, event3)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event1, event2, event3))
 
         assert(
             positions = listOf("1", "2", "3", "4", "5", "6"),
@@ -42,8 +34,7 @@ class AlbumScoresViewModelTests {
         val event1 = createEvent(1, 10.0f, 9.5f)
         val event2 = createEvent(2, 10.0f, 9.5f)
         val event3 = createEvent(3, 10.0f, 9.5f)
-        repository.getEventsLiveData.value = listOf(event1, event2, event3)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event1, event2, event3))
 
         assert(
             positions = listOf("1", "1", "1", "4", "4", "4"),
@@ -58,8 +49,7 @@ class AlbumScoresViewModelTests {
         val event3 = createEvent(3, 3.3f, 5.5f)
         val event4 = createEvent(4, 6.6f, 6.6f)
         val event5 = createEvent(5, 6.6f, 6.6f)
-        repository.getEventsLiveData.value = listOf(event1, event2, event3, event4, event5)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event1, event2, event3, event4, event5))
 
         assert(
             positions = listOf("1", "1", "1", "1", "5", "5", "5", "8", "8", "10"),
@@ -72,8 +62,7 @@ class AlbumScoresViewModelTests {
         val event1 = createEventByAlbumName(1, "AA", "dd")
         val event2 = createEventByAlbumName(2, "bb", "EE")
         val event3 = createEventByAlbumName(3, "CC", "ff")
-        repository.getEventsLiveData.value = listOf(event1, event2, event3)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event1, event2, event3))
 
         assert(
             positions = listOf("1", "1", "1", "1", "1", "1"),
@@ -86,8 +75,7 @@ class AlbumScoresViewModelTests {
         val event1 = createEventByAlbumArtist(1, "Aa", "ab")
         val event2 = createEventByAlbumArtist(2, "ACa1", "ACA2")
         val event3 = createEventByAlbumArtist(3, "aDEe3", "AdeE4")
-        repository.getEventsLiveData.value = listOf(event1, event2, event3)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event1, event2, event3))
 
         assert(
             positions = listOf("1", "1", "1", "1", "1", "1"),
@@ -115,8 +103,7 @@ class AlbumScoresViewModelTests {
         val event4 = createEvent(4, classicAlbum4, newAlbum4)
         val event5 = createEvent(5, classicAlbum5, newAlbum5)
 
-        repository.getEventsLiveData.value = listOf(event1, event2, event3, event4, event5)
-        viewModel.loadDataSync()
+        viewModel.setEvents(listOf(event1, event2, event3, event4, event5))
 
         assert(
             positions = listOf("1", "1", "1", "4", "4", "4", "7", "7", "9", "9"),
