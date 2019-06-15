@@ -11,23 +11,23 @@ class RepositoryImpl(
 
     private var cachedEvents: List<Event>? = null
 
-    override fun getEvents(callback: Repository.GetEventsCallback) {
+    override fun getEvents(callback: Repository.GetOperationCallback<List<Event>>) {
         cachedEvents?.let {
-            callback.onEventsLoaded(it)
+            callback.onDataLoaded(it)
         } ?: loadEvents(callback)
     }
 
-    private fun loadEvents(callback: Repository.GetEventsCallback) {
+    private fun loadEvents(callback: Repository.GetOperationCallback<List<Event>>) {
         remoteDataSource.getRemoteData(object : RemoteDataSource.GetRemoteDataCallback<List<Event>> {
             override fun onDataLoaded(data: List<Event>) {
                 localDataSource.setEvents(data)
                 cachedEvents = data
-                callback.onEventsLoaded(data)
+                callback.onDataLoaded(data)
             }
 
             override fun onDataNotAvailable() {
                 val localData = localDataSource.getEvents()
-                callback.onEventsLoaded(localData)
+                callback.onDataLoaded(localData)
             }
         })
     }

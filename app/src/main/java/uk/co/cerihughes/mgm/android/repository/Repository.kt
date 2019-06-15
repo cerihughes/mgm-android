@@ -4,9 +4,9 @@ import uk.co.cerihughes.mgm.android.model.Event
 
 interface Repository {
 
-    interface GetEventsCallback {
-        fun onEventsLoaded(data: List<Event>)
+    interface GetOperationCallback<T> {
+        fun onDataLoaded(data: T)
     }
 
-    fun getEvents(callback: GetEventsCallback)
+    fun getEvents(callback: GetOperationCallback<List<Event>>)
 }

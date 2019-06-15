@@ -5,7 +5,7 @@ import uk.co.cerihughes.mgm.android.model.Event
 class RepositoryFake : Repository {
     val getEventsData: List<Event> = emptyList()
 
-    override fun getEvents(callback: Repository.GetEventsCallback) {
-        callback.onEventsLoaded(getEventsData)
+    override fun getEvents(callback: Repository.GetOperationCallback<List<Event>>) {
+        callback.onDataLoaded(getEventsData)
     }
 }
