@@ -11,7 +11,7 @@ class LocalDataSourceImplTest {
 
     private lateinit var localDataSource: LocalDataSource
 
-    @Before
+//    @Before
     fun setUp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         Realm.init(context)
@@ -24,7 +24,7 @@ class LocalDataSourceImplTest {
         localDataSource = LocalDataSourceImpl(realm)
     }
 
-    @Test
+//    @Test
     fun placeholder() {
         Assert.assertTrue(true)
     }
