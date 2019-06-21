@@ -2,15 +2,16 @@ package uk.co.cerihughes.mgm.android.repository
 
 import io.realm.RealmList
 import io.realm.RealmModel
-import org.threeten.bp.DateTimeUtils
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
 import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.*
 import uk.co.cerihughes.mgm.android.model.*
+import java.text.SimpleDateFormat
 import java.util.*
 
-fun LocalDate.toSystemDefaultDate(): Date {
-    return DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+private val DATE_FORMAT = "dd/MM/yyyy"
+private val FORMATTER = SimpleDateFormat(DATE_FORMAT)
+
+fun String.toSystemDefaultDate(): Date? {
+    return FORMATTER.parse(this)
 }
 
 fun EventApiModel.toDataModel(): Event {
