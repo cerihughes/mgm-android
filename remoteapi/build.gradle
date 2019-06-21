@@ -23,8 +23,7 @@ openApiGenerate {
     invokerPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.invoker"
     modelPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.model"
     configOptions = [
-            "useGzipFeature" : true,
-            "dateLibrary" : "threetenbp"
+            "useGzipFeature" : true
     ]
 }
 
@@ -60,7 +59,6 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "org.threeten:threetenbp:$threeten_version"
 
     testImplementation 'junit:junit:4.12'
 }
