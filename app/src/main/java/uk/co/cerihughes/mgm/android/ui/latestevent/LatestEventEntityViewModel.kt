@@ -1,7 +1,6 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import uk.co.cerihughes.mgm.android.model.Album
-import uk.co.cerihughes.mgm.android.model.AlbumType
 import uk.co.cerihughes.mgm.android.model.Image
 import uk.co.cerihughes.mgm.android.model.Playlist
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel
@@ -17,12 +16,7 @@ class LatestEventEntityViewModel(
 
     companion object {
         fun createEntityViewModel(album: Album): LatestEventEntityViewModel {
-            val entityType = when (album.type) {
-                AlbumType.CLASSIC -> "CLASSIC ALBUM"
-                AlbumType.NEW -> "NEW ALBUM"
-                else -> "ALBUM"
-            }
-
+            val entityType = if (album.isClassic) "CLASSIC ALBUM" else "NEW ALBUM"
             val spotifyURL = album.spotifyId?.let {
                 SpotifyURLGenerator.createSpotifyAlbumURL(it)
             }
@@ -31,7 +25,7 @@ class LatestEventEntityViewModel(
         }
 
         fun createEntityViewModel(playlist: Playlist): LatestEventEntityViewModel {
-            val spotifyURL = playlist.spotifyId?.let {
+            val spotifyURL = playlist.spotifyId.let {
                 SpotifyURLGenerator.createSpotifyPlaylistURL(it)
             }
 

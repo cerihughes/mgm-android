@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.0.1"
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.openapi.generator'
+
+def generatedOASDir = new File(buildDir, "generated/oas-codegen/")
+def generatedOASSrcDir = new File(generatedOASDir, "src/main/kotlin/")
+
+openApiGenerate {
+    generatorName = "kotlin"
+    inputSpec = "https://mgm-gcp.appspot.com/swagger.json"
+    outputDir = generatedOASDir.getAbsolutePath()
+    apiPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.api"
+    invokerPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.invoker"
+    modelPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.model"
+    configOptions = [
+            "useGzipFeature" : true,
+            "dateLibrary" : "threetenbp"
+    ]
+}
+
+preBuild.dependsOn tasks.openApiGenerate
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs += generatedOASSrcDir
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // OAS generated
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "org.threeten:threetenbp:$threeten_version"
+
+    testImplementation 'junit:junit:4.12'
+}

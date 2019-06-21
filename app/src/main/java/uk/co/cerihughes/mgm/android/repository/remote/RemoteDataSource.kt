@@ -1,6 +1,6 @@
 package uk.co.cerihughes.mgm.android.repository.remote
 
-import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.EventApiModel
 
 interface RemoteDataSource {
 
@@ -9,5 +9,5 @@ interface RemoteDataSource {
         fun onDataNotAvailable()
     }
 
-    fun getRemoteData(callback: GetRemoteDataCallback<List<Event>>)
+    fun getRemoteData(callback: GetRemoteDataCallback<List<EventApiModel>>)
 }

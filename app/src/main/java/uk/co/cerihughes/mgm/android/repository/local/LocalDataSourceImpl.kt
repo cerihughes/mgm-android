@@ -1,42 +1,19 @@
 package uk.co.cerihughes.mgm.android.repository.local
 
-import android.content.Context
-import android.preference.PreferenceManager
-import uk.co.cerihughes.mgm.android.R
+import io.realm.Realm
 import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.repository.GsonFactory
 
-class LocalDataSourceImpl(context: Context) : LocalDataSource {
-
-    companion object {
-        val PREFERENCES_KEY = "MGM_REMOTE_DATA"
-    }
-
-    private val fallbackData: String
-    private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    private val gson = GsonFactory.createGson()
-
-    init {
-        fallbackData = context.resources.openRawResource(R.raw.mgm).bufferedReader().use { it.readText() }
-    }
+class LocalDataSourceImpl(private val realm: Realm) : LocalDataSource {
 
     override fun getEvents(): List<Event> {
-        val data = getLocalData() ?: return emptyList()
-        return gson.fromJson(data, Array<Event>::class.java).toList()
+        return realm.where(Event::class.java).findAll()
     }
 
-    override fun setEvents(events: List<Event>) {
-        val json = gson.toJson(events)
-        persistRemoteData(json)
-    }
-
-    private fun getLocalData(): String? {
-        return sharedPreferences.getString(PREFERENCES_KEY, fallbackData)
-    }
-
-    private fun persistRemoteData(remoteData: String): Boolean {
-        val editor = sharedPreferences.edit()
-        editor.putString(PREFERENCES_KEY, remoteData)
-        return editor.commit()
+    override fun addEvents(events: Collection<Event>) {
+        realm.executeTransactionAsync { bgRealm ->
+            for (event in events) {
+                bgRealm.insertOrUpdate(event)
+            }
+        }
     }
 }

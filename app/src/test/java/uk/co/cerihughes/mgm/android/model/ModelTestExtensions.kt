@@ -33,7 +33,7 @@ fun createEvent(number: Int, classicAlbum: Album, newAlbum: Album, locationName:
 }
 
 fun createAlbum(type: AlbumType, name: String = "name", artist: String = "artist", score: Float = 5.0f): Album {
-    return Album(type, null, name, artist, score, emptyList())
+    return Album(name, type == AlbumType.CLASSIC, null, name, artist, score)
 }
 
 fun createLocation(locationName: String?): Location? {

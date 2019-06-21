@@ -10,7 +10,7 @@ def getGitRevision = { ->
     }
     catch (Exception e) {
         e.printStackTrace();
-        return 0;
+        return 1;
     }
 }
 
@@ -18,6 +18,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
@@ -26,6 +28,7 @@ android {
         applicationId "uk.co.cerihughes.mgm.android"
         minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode revision
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -44,7 +47,10 @@ android {
 dependencies {
     // Top level dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(path: ':remoteapi')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.multidex:multidex:2.0.1"
 
     // Architecture dependencies
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -67,8 +73,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
     // Networking dependencies
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "org.threeten:threetenbp:$threeten_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Analytics dependencies

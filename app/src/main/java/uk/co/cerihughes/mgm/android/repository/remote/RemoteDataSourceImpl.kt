@@ -1,31 +1,18 @@
 package uk.co.cerihughes.mgm.android.repository.remote
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.api.DefaultApi
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.EventApiModel
 
 class RemoteDataSourceImpl : RemoteDataSource {
 
-    override fun getRemoteData(callback: RemoteDataSource.GetRemoteDataCallback<List<Event>>) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://mgm-gcp.appspot.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    private val api = DefaultApi()
 
-        val service = retrofit.create<RetrofitEventService>(RetrofitEventService::class.java)
-        service.getRemoteEvents().enqueue(object : Callback<List<Event>> {
-            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
-                response.body()?.let {
-                    callback.onDataLoaded(it)
-                } ?: callback.onDataNotAvailable()
-            }
-
-            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
-                callback.onDataNotAvailable()
-            }
-        })
+    override fun getRemoteData(callback: RemoteDataSource.GetRemoteDataCallback<List<EventApiModel>>) {
+        try {
+            val events = api.events().toList()
+            callback.onDataLoaded(events)
+        } catch (e: Exception) {
+            callback.onDataNotAvailable()
+        }
     }
 }
