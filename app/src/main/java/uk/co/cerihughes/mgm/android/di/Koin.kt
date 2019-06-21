@@ -6,6 +6,8 @@ import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.repository.RepositoryImpl
+import uk.co.cerihughes.mgm.android.repository.fallback.FallbackDataSource
+import uk.co.cerihughes.mgm.android.repository.fallback.FallbackDataSourceImpl
 import uk.co.cerihughes.mgm.android.repository.local.LocalDataSource
 import uk.co.cerihughes.mgm.android.repository.local.LocalDataSourceImpl
 import uk.co.cerihughes.mgm.android.repository.remote.RemoteDataSource
@@ -28,8 +30,11 @@ val appModule = module {
     // single instance of LocalDataSource
     single<LocalDataSource> { LocalDataSourceImpl(get()) }
 
+    // single instance of FallbackDataSource
+    single<FallbackDataSource> { FallbackDataSourceImpl(androidContext()) }
+
     // single instance of Repository
-    single<Repository> { RepositoryImpl(androidContext(), get(), get()) }
+    single<Repository> { RepositoryImpl(get(), get(), get()) }
 
     viewModel { MainViewModel() }
     viewModel { LatestEventViewModel(get()) }
