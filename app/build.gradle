@@ -50,6 +50,7 @@ dependencies {
     implementation project(path: ':remoteapi')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.multidex:multidex:2.0.1"
 
     // Architecture dependencies
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
