@@ -17,7 +17,7 @@ def generatedOASSrcDir = new File(generatedOASDir, "src/main/kotlin/")
 
 openApiGenerate {
     generatorName = "kotlin"
-    inputSpec = "https://mgm-gcp.appspot.com/swagger.json"
+    inputSpec = "$rootDir/mgm-schema/v1/openapi.yaml"
     outputDir = generatedOASDir.getAbsolutePath()
     apiPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.api"
     invokerPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.invoker"
