@@ -4,15 +4,15 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import uk.co.cerihughes.mgm.android.model.createEvent
-import uk.co.cerihughes.mgm.android.repository.RepositoryFake
+import uk.co.cerihughes.mgm.android.repository.MockRepository
 
 class LatestEventViewModelTests {
-    lateinit var repository: RepositoryFake
+    lateinit var repository: MockRepository
     lateinit var viewModel: LatestEventViewModel
 
     @Before
     fun setUp() {
-        repository = RepositoryFake()
+        repository = MockRepository()
         viewModel = LatestEventViewModel(repository)
     }
 
