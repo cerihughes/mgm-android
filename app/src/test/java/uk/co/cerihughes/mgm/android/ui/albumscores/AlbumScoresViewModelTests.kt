@@ -4,15 +4,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import uk.co.cerihughes.mgm.android.model.*
-import uk.co.cerihughes.mgm.android.repository.RepositoryFake
+import uk.co.cerihughes.mgm.android.repository.MockRepository
 
 class AlbumScoresViewModelTests {
-    lateinit var repository: RepositoryFake
+    lateinit var repository: MockRepository
     lateinit var viewModel: AlbumScoresViewModel
 
     @Before
     fun setUp() {
-        repository = RepositoryFake()
+        repository = MockRepository()
         viewModel = AlbumScoresViewModel(repository)
     }
 
