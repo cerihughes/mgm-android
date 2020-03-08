@@ -11,23 +11,17 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
         .thenBy { it.name.toLowerCase() }
         .thenBy { it.artist.toLowerCase() }
 
-    private var classicAlbums: List<Album> = emptyList()
-    private var newAlbums: List<Album> = emptyList()
     private var allAlbums: List<Album> = emptyList()
     private var scoreViewModels: List<AlbumScoreViewModel> = emptyList()
 
     fun isLoaded(): Boolean = allAlbums.size > 0
 
     override fun setEvents(events: List<Event>) {
-        classicAlbums = events.mapNotNull { it.classicAlbum }
+        allAlbums = events.map { mutableListOf(it.classicAlbum, it.newAlbum) }
+            .flatten()
+            .filterNotNull()
             .filter { it.score != null }
             .sortedWith(comparator)
-
-        newAlbums = events.mapNotNull { it.newAlbum }
-            .filter { it.score != null }
-            .sortedWith(comparator)
-
-        allAlbums = (classicAlbums + newAlbums).sortedWith(comparator)
 
         val positions = calculatePositions(allAlbums)
         scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions.get(index)) }
