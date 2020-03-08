@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.openapitools:openapi-generator-gradle-plugin:4.0.1"
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.2.3"
     }
 }
 
@@ -62,5 +62,5 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "org.threeten:threetenbp:$threeten_version"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 }
