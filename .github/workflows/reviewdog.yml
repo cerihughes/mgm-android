@@ -14,5 +14,4 @@ jobs:
         uses: ScaCap/action-ktlint@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review # Change reporter
-          level: info
+          reporter: github-pr-review
