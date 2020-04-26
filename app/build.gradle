@@ -9,8 +9,8 @@ def getGitRevision = { ->
         return stdout.toString("ASCII").trim() as Integer
     }
     catch (Exception e) {
-        e.printStackTrace();
-        return 1;
+        e.printStackTrace()
+        return 1
     }
 }
 
@@ -22,12 +22,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     def revision = getGitRevision()
     defaultConfig {
         applicationId "uk.co.cerihughes.mgm.android"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion 23
+        targetSdkVersion 29
         multiDexEnabled true
         versionCode revision
         versionName "1.1"
@@ -65,7 +65,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
 
     // Other UI dependencies
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -78,7 +78,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Analytics dependencies
-    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-core:17.4.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
