@@ -22,12 +22,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     def revision = getGitRevision()
     defaultConfig {
         applicationId "uk.co.cerihughes.mgm.android"
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 28
         multiDexEnabled true
         versionCode revision
         versionName "1.1"
@@ -65,13 +65,13 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.2.0'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0'
 
     // Other UI dependencies
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Maps dependencies
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.9'
 
     // Networking dependencies
     implementation "org.threeten:threetenbp:$threeten_version"
