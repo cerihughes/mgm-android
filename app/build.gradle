@@ -71,14 +71,14 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Maps dependencies
-    implementation 'com.google.android.gms:play-services-maps:16.0.9'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     // Networking dependencies
     implementation "org.threeten:threetenbp:$threeten_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Analytics dependencies
-    implementation 'com.google.firebase:firebase-core:17.4.0'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
