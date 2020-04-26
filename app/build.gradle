@@ -9,8 +9,8 @@ def getGitRevision = { ->
         return stdout.toString("ASCII").trim() as Integer
     }
     catch (Exception e) {
-        e.printStackTrace();
-        return 1;
+        e.printStackTrace()
+        return 1
     }
 }
 
