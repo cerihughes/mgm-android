@@ -2,10 +2,10 @@ package uk.co.cerihughes.mgm.android.repository
 
 import io.realm.RealmList
 import io.realm.RealmModel
-import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.*
-import uk.co.cerihughes.mgm.android.model.*
 import java.text.SimpleDateFormat
 import java.util.*
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.*
+import uk.co.cerihughes.mgm.android.model.*
 
 private val DATE_FORMAT = "dd/MM/yyyy"
 private val FORMATTER = SimpleDateFormat(DATE_FORMAT)
@@ -46,7 +46,7 @@ fun AlbumApiModel.Type.toDataModel(): Boolean {
 }
 
 fun AlbumApiModel.Type.createId(eventNumber: Int): String {
-    return "${eventNumber}-${this.value}"
+    return "$eventNumber-${this.value}"
 }
 
 fun PlaylistApiModel.safeImages() = images ?: emptyArray()

@@ -1,9 +1,9 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
+import java.text.DateFormat
 import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
-import java.text.DateFormat
 
 class LatestEventViewModel(repository: Repository) : RemoteDataLoadingViewModel(repository) {
 
