@@ -1,3 +1,10 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'org.jetbrains.kotlin.kapt'
+}
+
 def getGitRevision = { ->
     try {
         def stdout = new ByteArrayOutputStream()
@@ -14,22 +21,18 @@ def getGitRevision = { ->
     }
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 31
+    namespace 'uk.co.cerihughes.mgm.android'
+    compileSdk 34
     def revision = getGitRevision()
     defaultConfig {
         applicationId "uk.co.cerihughes.mgm.android"
-        minSdkVersion 21
-        targetSdkVersion 31
-        multiDexEnabled true
+        minSdk 24
+        targetSdk 34
         versionCode revision
-        versionName "1.1"
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -38,48 +41,45 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    testOptions {
-        unitTests.returnDefaultValues = true
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    namespace 'uk.co.cerihughes.mgm.android'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
     // Top level dependencies
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(path: ':remoteapi')
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
 
     // Architecture dependencies
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "org.koin:koin-core:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
-    implementation "org.jetbrains.anko:anko-commons:0.10.0"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
 
     // Android UI dependencies
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Other UI dependencies
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Maps dependencies
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
 
     // Networking dependencies
     implementation "org.threeten:threetenbp:$threeten_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    testImplementation 'junit:junit:4.13'
-    testImplementation "org.koin:koin-test:$koin_version"
-
-    androidTestImplementation 'androidx.test:runner:1.2.0'
+    // Test Dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

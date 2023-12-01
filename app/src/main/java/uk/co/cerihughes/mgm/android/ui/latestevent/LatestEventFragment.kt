@@ -8,28 +8,30 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_album_scores.view.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import uk.co.cerihughes.mgm.android.R
+import uk.co.cerihughes.mgm.android.databinding.FragmentLatestEventBinding
+import uk.co.cerihughes.mgm.android.databinding.LatestEventLocationListItemBinding
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
 class LatestEventFragment : Fragment() {
 
+    private lateinit var binding: FragmentLatestEventBinding
     val viewModel: LatestEventViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_latest_event, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = FragmentLatestEventBinding.inflate(layoutInflater)
 
-        val recyclerView = view?.recycler_view ?: return
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        recyclerView.adapter = LatestEventAdapter(viewModel)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+        binding.recyclerView.adapter = LatestEventAdapter(viewModel)
     }
 
     override fun onStart() {
@@ -39,15 +41,12 @@ class LatestEventFragment : Fragment() {
             return
         }
 
-        val progressBar = view?.progress_loader ?: return
-        progressBar.visibility = View.VISIBLE
+        binding.progressLoader.visibility = View.VISIBLE
 
         viewModel.loadData(object : RemoteDataLoadingViewModel.LoadDataCallback {
             override fun onDataLoaded() {
-                val recyclerView = view?.recycler_view ?: return
-
-                progressBar.visibility = View.GONE
-                recyclerView.adapter?.notifyDataSetChanged()
+                binding.progressLoader.visibility = View.GONE
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
         })
     }

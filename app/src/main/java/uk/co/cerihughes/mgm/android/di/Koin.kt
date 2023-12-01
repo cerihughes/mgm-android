@@ -2,8 +2,8 @@ package uk.co.cerihughes.mgm.android.di
 
 import io.realm.Realm
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.repository.RepositoryImpl
 import uk.co.cerihughes.mgm.android.repository.fallback.FallbackDataSource

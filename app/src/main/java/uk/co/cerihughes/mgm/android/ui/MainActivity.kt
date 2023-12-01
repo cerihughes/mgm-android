@@ -1,35 +1,29 @@
 package uk.co.cerihughes.mgm.android.ui
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.crashlytics.android.Crashlytics
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.fabric.sdk.android.Fabric
-import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uk.co.cerihughes.mgm.android.R
+import uk.co.cerihughes.mgm.android.databinding.ActivityMainBinding
 import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresFragment
 import uk.co.cerihughes.mgm.android.ui.latestevent.LatestEventFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Fabric.with(this, Crashlytics())
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(R.layout.activity_main)
         loadFragment(viewModel.selectedItemId)
 
-        navigation.setOnNavigationItemSelectedListener(object : BottomNavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                return loadFragment(item.itemId)
-            }
-        })
+        binding.navigation.setOnItemSelectedListener {
+            loadFragment(it.itemId)
+        }
     }
 
     private fun loadFragment(itemId: Int): Boolean {

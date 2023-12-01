@@ -31,10 +31,10 @@ openApiGenerate {
 preBuild.dependsOn tasks.openApiGenerate
 
 android {
-    compileSdkVersion 31
+    compileSdk 34
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 31
+        minSdk 24
+        targetSdk 34
     }
 
     buildTypes {

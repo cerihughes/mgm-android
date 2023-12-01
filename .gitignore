@@ -1,7 +1,6 @@
 .DS_Store
 
 secrets.xml
-google-services.json
 local.properties
 
 build/
