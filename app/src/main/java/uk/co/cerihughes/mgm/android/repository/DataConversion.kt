@@ -27,7 +27,7 @@ fun LocationApiModel.toDataModel(): Location {
     return Location(name, latitude, longitude)
 }
 
-fun AlbumApiModel.safeImages() = images ?: emptyList<ImageApiModel>()
+fun AlbumApiModel.safeImages() = images ?: emptyList()
 
 fun AlbumApiModel.toDataModel(eventNumber: Int): Album {
     return Album(
@@ -49,7 +49,7 @@ fun AlbumApiModel.Type.createId(eventNumber: Int): String {
     return "$eventNumber-${this.value}"
 }
 
-fun PlaylistApiModel.safeImages() = images ?: emptyList<ImageApiModel>()
+fun PlaylistApiModel.safeImages() = images ?: emptyList()
 
 fun PlaylistApiModel.toDataModel(): Playlist {
     return Playlist(
