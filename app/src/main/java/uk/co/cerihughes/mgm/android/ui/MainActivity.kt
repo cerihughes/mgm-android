@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 loadFragment(LatestEventFragment())
                 return true
             }
+
             R.id.navigation_album_scores -> {
                 loadFragment(AlbumScoresFragment())
                 return true

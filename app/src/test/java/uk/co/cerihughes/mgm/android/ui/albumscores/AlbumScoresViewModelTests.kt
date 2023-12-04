@@ -3,7 +3,11 @@ package uk.co.cerihughes.mgm.android.ui.albumscores
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import uk.co.cerihughes.mgm.android.model.*
+import uk.co.cerihughes.mgm.android.model.AlbumType
+import uk.co.cerihughes.mgm.android.model.createAlbum
+import uk.co.cerihughes.mgm.android.model.createEvent
+import uk.co.cerihughes.mgm.android.model.createEventByAlbumArtist
+import uk.co.cerihughes.mgm.android.model.createEventByAlbumName
 import uk.co.cerihughes.mgm.android.repository.MockRepository
 
 class AlbumScoresViewModelTests {
@@ -107,7 +111,18 @@ class AlbumScoresViewModelTests {
 
         assert(
             positions = listOf("1", "1", "1", "4", "4", "4", "7", "7", "9", "9"),
-            ratings = listOf("10.0", "10.0", "10.0", "9.0", "9.0", "9.0", "8.0", "8.0", "7.0", "7.0"),
+            ratings = listOf(
+                "10.0",
+                "10.0",
+                "10.0",
+                "9.0",
+                "9.0",
+                "9.0",
+                "8.0",
+                "8.0",
+                "7.0",
+                "7.0"
+            ),
             albumNames = listOf("A0", "A1", "A1", "B2", "B2", "B2", "aaa", "zzz", "1", "2"),
             artistNames = listOf("ZZZ", "A2", "Z1", "xxx", "yyy", "zzz", "zzz", "aaa", "Art", "Art")
         )

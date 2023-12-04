@@ -4,12 +4,13 @@ import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
+import java.util.Locale
 
 class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(repository) {
 
     private val comparator = compareByDescending<Album> { it.score }
-        .thenBy { it.name.toLowerCase() }
-        .thenBy { it.artist.toLowerCase() }
+        .thenBy { it.name.lowercase(Locale.getDefault()) }
+        .thenBy { it.artist.lowercase(Locale.getDefault()) }
 
     private var allAlbums: List<Album> = emptyList()
     private var scoreViewModels: List<AlbumScoreViewModel> = emptyList()
@@ -24,7 +25,8 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
             .sortedWith(comparator)
 
         val positions = calculatePositions(allAlbums)
-        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions.get(index)) }
+        scoreViewModels =
+            allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions.get(index)) }
     }
 
     fun numberOfScores(): Int {

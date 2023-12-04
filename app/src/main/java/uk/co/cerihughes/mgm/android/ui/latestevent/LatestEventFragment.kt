@@ -17,7 +17,11 @@ class LatestEventFragment : Fragment() {
     private lateinit var binding: FragmentLatestEventBinding
     val viewModel: LatestEventViewModel by sharedViewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentLatestEventBinding.inflate(layoutInflater)
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)

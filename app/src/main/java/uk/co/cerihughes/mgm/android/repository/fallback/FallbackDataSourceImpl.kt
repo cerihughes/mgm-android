@@ -11,7 +11,8 @@ class FallbackDataSourceImpl(context: Context) : FallbackDataSource {
     private val gson = GsonFactory.createGson()
 
     init {
-        fallbackData = context.resources.openRawResource(R.raw.mgm).bufferedReader().use { it.readText() }
+        fallbackData =
+            context.resources.openRawResource(R.raw.mgm).bufferedReader().use { it.readText() }
     }
 
     override fun getFallbackData(): List<EventApiModel> {
