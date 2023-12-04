@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(binding.fragmentContainer.id, fragment)
             .commit()
     }
 }
