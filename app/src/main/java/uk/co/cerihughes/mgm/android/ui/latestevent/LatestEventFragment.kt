@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.databinding.FragmentLatestEventBinding
-import uk.co.cerihughes.mgm.android.databinding.LatestEventLocationListItemBinding
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
 class LatestEventFragment : Fragment() {
@@ -20,11 +18,6 @@ class LatestEventFragment : Fragment() {
     val viewModel: LatestEventViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_latest_event, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         binding = FragmentLatestEventBinding.inflate(layoutInflater)
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -32,6 +25,7 @@ class LatestEventFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
         binding.recyclerView.adapter = LatestEventAdapter(viewModel)
+        return binding.root
     }
 
     override fun onStart() {

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.databinding.FragmentAlbumScoresBinding
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
@@ -19,11 +18,6 @@ class AlbumScoresFragment : Fragment() {
     val viewModel: AlbumScoresViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_album_scores, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         binding = FragmentAlbumScoresBinding.inflate(layoutInflater)
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -31,6 +25,7 @@ class AlbumScoresFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
         binding.recyclerView.adapter = AlbumScoresAdapter(viewModel)
+        return binding.root
     }
 
     override fun onStart() {
