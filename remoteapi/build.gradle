@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.openapitools:openapi-generator-gradle-plugin:4.2.0"
+        classpath "org.openapitools:openapi-generator-gradle-plugin:7.0.0"
     }
 }
 
@@ -23,7 +23,7 @@ openApiGenerate {
     invokerPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.invoker"
     modelPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.model"
     configOptions = [
-            "useGzipFeature" : true,
+            "useGzipFeature" : "true",
             "dateLibrary" : "threetenbp"
     ]
 }
@@ -31,10 +31,10 @@ openApiGenerate {
 preBuild.dependsOn tasks.openApiGenerate
 
 android {
-    compileSdkVersion 28
+    compileSdk 34
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdk 24
+        targetSdk 34
     }
 
     buildTypes {
@@ -51,6 +51,7 @@ android {
             }
         }
     }
+    namespace 'uk.co.cerihughes.mgm.android.remoteapi'
 }
 
 dependencies {

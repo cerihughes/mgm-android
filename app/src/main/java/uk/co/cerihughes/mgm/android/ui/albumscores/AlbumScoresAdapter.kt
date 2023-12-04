@@ -1,14 +1,14 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.album_scores_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
-import uk.co.cerihughes.mgm.android.ui.inflate
+import uk.co.cerihughes.mgm.android.databinding.AlbumScoresListItemBinding
 import uk.co.cerihughes.mgm.android.ui.isSpotifyInstalled
 import uk.co.cerihughes.mgm.android.ui.launchSpotify
 
@@ -16,9 +16,9 @@ class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
     RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumScoresItemViewHolder {
-        val view = viewGroup.inflate(R.layout.album_scores_list_item, false)
-        val holder = AlbumScoresItemViewHolder(viewModel, view)
-        view.setOnClickListener(holder)
+        val itemBinding = AlbumScoresListItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val holder = AlbumScoresItemViewHolder(viewModel, itemBinding)
+        itemBinding.root.setOnClickListener(holder)
         return holder
     }
 
@@ -29,8 +29,8 @@ class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
 
     override fun getItemCount() = viewModel.numberOfScores()
 
-    class AlbumScoresItemViewHolder(private val viewModel: AlbumScoresViewModel, itemView: View) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class AlbumScoresItemViewHolder(private val viewModel: AlbumScoresViewModel, private val itemBinding: AlbumScoresListItemBinding) :
+        RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         fun bind(viewModel: AlbumScoreViewModel) {
             val largestDimension = itemView.resources.getDimension(R.dimen.album_scores_list_item_height)
@@ -38,8 +38,8 @@ class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
                 Picasso.get()
                     .load(it)
                     .placeholder(R.drawable.album1)
-                    .into(itemView.coverArtIV)
-            } ?: itemView.coverArtIV.setImageDrawable(
+                    .into(itemBinding.coverArtIV)
+            } ?: itemBinding.coverArtIV.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
                     R.drawable.album1,
@@ -47,13 +47,13 @@ class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
                 )
             )
 
-            itemView.albumNameTV.text = viewModel.albumName()
-            itemView.artistNameTV.text = viewModel.artistName()
-            itemView.ratingTV.text = viewModel.rating()
-            itemView.ratingTV.setTextColor(viewModel.ratingColour())
-            itemView.positionTV.text = viewModel.position()
+            itemBinding.albumNameTV.text = viewModel.albumName()
+            itemBinding.artistNameTV.text = viewModel.artistName()
+            itemBinding.ratingTV.text = viewModel.rating()
+            itemBinding.ratingTV.setTextColor(viewModel.ratingColour())
+            itemBinding.positionTV.text = viewModel.position()
 
-            itemView.awardIV.setImageDrawable(
+            itemBinding.awardIV.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
                     viewModel.awardImage(),
