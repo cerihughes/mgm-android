@@ -28,15 +28,29 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             LatestEventViewModel.ItemType.TITLE.rawValue -> {
-                val itemBinding = LatestEventTitleListItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+                val itemBinding = LatestEventTitleListItemBinding.inflate(
+                    LayoutInflater.from(viewGroup.context),
+                    viewGroup,
+                    false
+                )
                 return LatestEventTitleItemViewHolder(itemBinding)
             }
+
             LatestEventViewModel.ItemType.LOCATION.rawValue -> {
-                val itemBinding = LatestEventLocationListItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+                val itemBinding = LatestEventLocationListItemBinding.inflate(
+                    LayoutInflater.from(viewGroup.context),
+                    viewGroup,
+                    false
+                )
                 return LatestEventLocationItemViewHolder(itemBinding)
             }
+
             else -> {
-                val itemBinding = LatestEventEntityListItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+                val itemBinding = LatestEventEntityListItemBinding.inflate(
+                    LayoutInflater.from(viewGroup.context),
+                    viewGroup,
+                    false
+                )
                 val holder = LatestEventEntityItemViewHolder(viewModel, itemBinding)
                 itemBinding.root.setOnClickListener(holder)
                 return holder
@@ -51,10 +65,12 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
                 val title = viewModel.headerTitle(position) ?: return
                 holder.bind(title)
             }
+
             LatestEventViewModel.ItemType.LOCATION -> {
                 holder as? LatestEventLocationItemViewHolder ?: return
                 holder.bind(viewModel)
             }
+
             LatestEventViewModel.ItemType.ENTITY -> {
                 holder as? LatestEventEntityItemViewHolder ?: return
                 val eventEntityViewModel = viewModel.eventEntityViewModel(position) ?: return
@@ -67,14 +83,16 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
         return viewModel.numberOfItems()
     }
 
-    class LatestEventTitleItemViewHolder(private val itemBinding: LatestEventTitleListItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+    class LatestEventTitleItemViewHolder(private val itemBinding: LatestEventTitleListItemBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(title: String) {
             itemBinding.textView.text = title
         }
     }
 
-    class LatestEventLocationItemViewHolder(private val itemBinding: LatestEventLocationListItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+    class LatestEventLocationItemViewHolder(private val itemBinding: LatestEventLocationListItemBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(viewModel: LatestEventViewModel) {
             viewModel.mapReference()?.let {
@@ -82,7 +100,9 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
                 itemBinding.mapView.onCreate(null)
                 itemBinding.mapView.getMapAsync {
                     it.uiSettings.setAllGesturesEnabled(false)
-                    val marker = it.addMarker(MarkerOptions().position(position).title(viewModel.locationName()))
+                    val marker = it.addMarker(
+                        MarkerOptions().position(position).title(viewModel.locationName())
+                    )
                     it.moveCamera(CameraUpdateFactory.newLatLng(position))
                     marker?.showInfoWindow()
                 }
@@ -91,11 +111,15 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
         }
     }
 
-    class LatestEventEntityItemViewHolder(private val viewModel: LatestEventViewModel, private val itemBinding: LatestEventEntityListItemBinding) :
+    class LatestEventEntityItemViewHolder(
+        private val viewModel: LatestEventViewModel,
+        private val itemBinding: LatestEventEntityListItemBinding
+    ) :
         RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         fun bind(viewModel: LatestEventEntityViewModel) {
-            val largestDimension = itemView.resources.getDimension(R.dimen.latest_event_entity_list_item_height)
+            val largestDimension =
+                itemView.resources.getDimension(R.dimen.latest_event_entity_list_item_height)
             viewModel.coverArtURL(largestDimension.toInt())?.let {
                 Picasso.get()
                     .load(it)

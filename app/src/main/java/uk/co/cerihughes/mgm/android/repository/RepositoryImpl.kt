@@ -20,7 +20,8 @@ class RepositoryImpl(
     }
 
     private fun loadEvents(callback: Repository.GetOperationCallback<List<Event>>) {
-        remoteDataSource.getRemoteData(object : RemoteDataSource.GetRemoteDataCallback<List<EventApiModel>> {
+        remoteDataSource.getRemoteData(object :
+            RemoteDataSource.GetRemoteDataCallback<List<EventApiModel>> {
             override fun onDataLoaded(data: List<EventApiModel>) {
                 val models = data.map { it.toDataModel() }
                 localDataSource.addEvents(models)

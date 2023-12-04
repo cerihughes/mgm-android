@@ -15,8 +15,15 @@ import uk.co.cerihughes.mgm.android.ui.launchSpotify
 class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
     RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumScoresItemViewHolder {
-        val itemBinding = AlbumScoresListItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+    override fun onCreateViewHolder(
+        viewGroup: ViewGroup,
+        viewType: Int
+    ): AlbumScoresItemViewHolder {
+        val itemBinding = AlbumScoresListItemBinding.inflate(
+            LayoutInflater.from(viewGroup.context),
+            viewGroup,
+            false
+        )
         val holder = AlbumScoresItemViewHolder(viewModel, itemBinding)
         itemBinding.root.setOnClickListener(holder)
         return holder
@@ -29,11 +36,15 @@ class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
 
     override fun getItemCount() = viewModel.numberOfScores()
 
-    class AlbumScoresItemViewHolder(private val viewModel: AlbumScoresViewModel, private val itemBinding: AlbumScoresListItemBinding) :
+    class AlbumScoresItemViewHolder(
+        private val viewModel: AlbumScoresViewModel,
+        private val itemBinding: AlbumScoresListItemBinding
+    ) :
         RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         fun bind(viewModel: AlbumScoreViewModel) {
-            val largestDimension = itemView.resources.getDimension(R.dimen.album_scores_list_item_height)
+            val largestDimension =
+                itemView.resources.getDimension(R.dimen.album_scores_list_item_height)
             viewModel.coverArtURL(largestDimension.toInt())?.let {
                 Picasso.get()
                     .load(it)

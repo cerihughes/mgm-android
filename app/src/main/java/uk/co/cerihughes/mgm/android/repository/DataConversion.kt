@@ -2,10 +2,18 @@ package uk.co.cerihughes.mgm.android.repository
 
 import io.realm.RealmList
 import io.realm.RealmModel
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.AlbumApiModel
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.EventApiModel
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.ImageApiModel
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.LocationApiModel
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.PlaylistApiModel
+import uk.co.cerihughes.mgm.android.model.Album
+import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.model.Image
+import uk.co.cerihughes.mgm.android.model.Location
+import uk.co.cerihughes.mgm.android.model.Playlist
 import java.text.SimpleDateFormat
-import java.util.*
-import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.*
-import uk.co.cerihughes.mgm.android.model.*
+import java.util.Date
 
 private val DATE_FORMAT = "dd/MM/yyyy"
 private val FORMATTER = SimpleDateFormat(DATE_FORMAT)

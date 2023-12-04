@@ -17,7 +17,11 @@ class AlbumScoresFragment : Fragment() {
     private lateinit var binding: FragmentAlbumScoresBinding
     val viewModel: AlbumScoresViewModel by sharedViewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAlbumScoresBinding.inflate(layoutInflater)
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
