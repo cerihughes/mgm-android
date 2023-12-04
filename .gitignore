@@ -1,6 +1,5 @@
 .DS_Store
 
-secrets.xml
 local.properties
 
 build/
