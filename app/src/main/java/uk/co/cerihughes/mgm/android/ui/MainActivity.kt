@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         loadFragment(viewModel.selectedItemId)
 
         binding.navigation.setOnItemSelectedListener {
