@@ -27,6 +27,8 @@ jobs:
       - name: Create fake local.properties
         run: echo MAPS_API_KEY="$123456" > ./local.properties
       - name: Run Unit Tests with Gradle
-        run: ./gradlew test
+        run: ./gradlew test jacocoTestReport
       - name: Codecov
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v2
+        with:
+          files: "app/build/reports/coverage/androidTest/debug/connected/report.xml"
