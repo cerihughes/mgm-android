@@ -1,4 +1,4 @@
-name: Build master branch
+name: Build and test
 
 on:
   pull_request:
@@ -24,6 +24,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
              ${{ runner.os }}-gradle-
+      - name: Create fake local.properties
+        run: echo API_KEY="$123456" > ./local.properties
       - name: Run Unit Tests with Gradle
         run: ./gradlew test
       - name: Codecov
