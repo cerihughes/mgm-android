@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
              ${{ runner.os }}-gradle-
       - name: Create fake local.properties
-        run: echo API_KEY="$123456" > ./local.properties
+        run: echo MAPS_API_KEY="$123456" > ./local.properties
       - name: Run Unit Tests with Gradle
         run: ./gradlew test
       - name: Codecov
