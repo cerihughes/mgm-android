@@ -11,6 +11,7 @@ class RepositoryImpl(
     private val api = DefaultApi()
 
     private var cachedEvents: List<Event>? = null
+
     override suspend fun getEvents(): List<Event> {
         return cachedEvents ?: loadEvents()
     }
