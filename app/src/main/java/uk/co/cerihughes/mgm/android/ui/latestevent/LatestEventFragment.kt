@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import uk.co.cerihughes.mgm.android.databinding.FragmentLatestEventBinding
-import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
 class LatestEventFragment : Fragment() {
 
@@ -41,11 +42,10 @@ class LatestEventFragment : Fragment() {
 
         binding.progressLoader.visibility = View.VISIBLE
 
-        viewModel.loadData(object : RemoteDataLoadingViewModel.LoadDataCallback {
-            override fun onDataLoaded() {
-                binding.progressLoader.visibility = View.GONE
-                binding.recyclerView.adapter?.notifyDataSetChanged()
-            }
-        })
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.loadData()
+            binding.progressLoader.visibility = View.GONE
+            binding.recyclerView.adapter?.notifyDataSetChanged()
+        }
     }
 }

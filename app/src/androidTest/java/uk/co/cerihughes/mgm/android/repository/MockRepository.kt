@@ -5,7 +5,7 @@ import uk.co.cerihughes.mgm.android.model.Event
 class MockRepository : Repository {
     var getEventsResponse: List<Event> = emptyList()
 
-    override fun getEvents(callback: Repository.GetOperationCallback<List<Event>>) {
-        callback.onDataLoaded(getEventsResponse)
+    override suspend fun getEvents(): List<Event> {
+        return getEventsResponse
     }
 }

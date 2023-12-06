@@ -1,36 +1,28 @@
 package uk.co.cerihughes.mgm.android.repository
 
-import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.EventApiModel
+import uk.co.cerihughes.mgm.android.datasource.remote.generated.api.DefaultApi
 import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.fallback.FallbackDataSource
-import uk.co.cerihughes.mgm.android.repository.remote.RemoteDataSource
 
 class RepositoryImpl(
-    private val remoteDataSource: RemoteDataSource,
     private val fallbackDataSource: FallbackDataSource,
 ) : Repository {
 
+    private val api = DefaultApi()
+
     private var cachedEvents: List<Event>? = null
-    override fun getEvents(callback: Repository.GetOperationCallback<List<Event>>) {
-        cachedEvents?.let {
-            callback.onDataLoaded(it)
-        } ?: loadEvents(callback)
+
+    override suspend fun getEvents(): List<Event> {
+        return cachedEvents ?: loadEvents()
     }
 
-    private fun loadEvents(callback: Repository.GetOperationCallback<List<Event>>) {
-        remoteDataSource.getRemoteData(object :
-            RemoteDataSource.GetRemoteDataCallback<List<EventApiModel>> {
-            override fun onDataLoaded(data: List<EventApiModel>) {
-                val models = data.map { it.toDataModel() }
-                cachedEvents = models
-                callback.onDataLoaded(models)
-            }
-
-            override fun onDataNotAvailable() {
-                val apiModels = fallbackDataSource.getFallbackData()
-                val models = apiModels.map { it.toDataModel() }
-                callback.onDataLoaded(models.toList())
-            }
-        })
+    private suspend fun loadEvents(): List<Event> {
+        return try {
+            val events = api.events().map { it.toDataModel() }
+            cachedEvents = events
+            events
+        } catch (e: Exception) {
+            fallbackDataSource.getFallbackData().map { it.toDataModel() }
+        }
     }
 }
