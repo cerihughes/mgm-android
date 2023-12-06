@@ -72,12 +72,7 @@ class LatestEventViewModel(repository: Repository) : RemoteDataLoadingViewModel(
 
     val numberOfEntities: Int get() = eventEntityViewModels.size
 
-    private val isLocationAvailable: Boolean get() {
-        event?.location?.let {
-            return true
-        }
-        return false
-    }
+    private val isLocationAvailable: Boolean get() = event?.location != null
 
     fun itemType(position: Int): ItemType {
         if (isLocationAvailable) {

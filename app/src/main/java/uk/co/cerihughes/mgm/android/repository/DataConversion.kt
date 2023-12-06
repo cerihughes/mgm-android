@@ -21,7 +21,8 @@ fun String.toSystemDefaultDate(): Date? {
 }
 
 fun EventApiModel.toDataModel(): Event {
-    return Event(number,
+    return Event(
+        number,
         location?.toDataModel(),
         date?.toSystemDefaultDate(),
         playlist?.toDataModel(),

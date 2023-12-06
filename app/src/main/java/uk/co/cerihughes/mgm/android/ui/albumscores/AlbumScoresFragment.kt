@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import uk.co.cerihughes.mgm.android.databinding.FragmentAlbumScoresBinding
-import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
 class AlbumScoresFragment : Fragment() {
 
