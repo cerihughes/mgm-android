@@ -24,7 +24,8 @@ openApiGenerate {
     modelPackage = "uk.co.cerihughes.mgm.android.datasource.remote.generated.model"
     configOptions = [
             "useGzipFeature" : "true",
-            "dateLibrary" : "threetenbp"
+            "useCoroutines": "true",
+            "dateLibrary" : "java8"
     ]
 }
 
@@ -67,8 +68,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // OAS generated
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "org.threeten:threetenbp:$threeten_version"
 }
