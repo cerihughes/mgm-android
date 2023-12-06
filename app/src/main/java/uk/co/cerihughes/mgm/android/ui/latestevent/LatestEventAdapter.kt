@@ -61,18 +61,18 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (viewModel.itemType(position)) {
             LatestEventViewModel.ItemType.TITLE -> {
-                holder as? LatestEventTitleItemViewHolder ?: return
-                val title = viewModel.headerTitle(position) ?: return
+                if (holder !is LatestEventTitleItemViewHolder) return
+                val title = viewModel.headerTitle(position)
                 holder.bind(title)
             }
 
             LatestEventViewModel.ItemType.LOCATION -> {
-                holder as? LatestEventLocationItemViewHolder ?: return
+                if (holder !is LatestEventLocationItemViewHolder) return
                 holder.bind(viewModel)
             }
 
             LatestEventViewModel.ItemType.ENTITY -> {
-                holder as? LatestEventEntityItemViewHolder ?: return
+                if (holder !is LatestEventEntityItemViewHolder) return
                 val eventEntityViewModel = viewModel.eventEntityViewModel(position) ?: return
                 holder.bind(eventEntityViewModel)
             }
@@ -95,8 +95,8 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(viewModel: LatestEventViewModel) {
-            viewModel.mapReference()?.let {
-                val position = LatLng(it.first, it.second)
+            viewModel.mapReference()?.let { ref ->
+                val position = LatLng(ref.first, ref.second)
                 itemBinding.mapView.onCreate(null)
                 itemBinding.mapView.getMapAsync {
                     it.uiSettings.setAllGesturesEnabled(false)
@@ -146,15 +146,15 @@ class LatestEventAdapter(private val viewModel: LatestEventViewModel) :
         }
 
         override fun onClick(v: View?) {
-            var view = v ?: return
-            var context = view.context
+            val view = v ?: return
+            val context = view.context
 
-            if (context.packageManager.isSpotifyInstalled() == false) {
+            if (!context.packageManager.isSpotifyInstalled()) {
                 return
             }
 
             val eventEntityViewModel = viewModel.eventEntityViewModel(adapterPosition) ?: return
-            var spotifyURL = eventEntityViewModel.spotifyURL ?: return
+            val spotifyURL = eventEntityViewModel.spotifyURL ?: return
 
             val intent = Intent(Intent.ACTION_VIEW)
             intent.launchSpotify(context, spotifyURL)

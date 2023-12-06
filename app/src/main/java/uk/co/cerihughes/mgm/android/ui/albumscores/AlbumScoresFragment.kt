@@ -15,7 +15,7 @@ import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 class AlbumScoresFragment : Fragment() {
 
     private lateinit var binding: FragmentAlbumScoresBinding
-    val viewModel: AlbumScoresViewModel by sharedViewModel()
+    private val viewModel: AlbumScoresViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +35,7 @@ class AlbumScoresFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if (viewModel.isLoaded()) {
+        if (viewModel.isLoaded) {
             return
         }
 

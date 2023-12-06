@@ -13,7 +13,7 @@ import uk.co.cerihughes.mgm.android.model.Playlist
 import java.text.SimpleDateFormat
 import java.util.Date
 
-private val DATE_FORMAT = "dd/MM/yyyy"
+private const val DATE_FORMAT = "dd/MM/yyyy"
 private val FORMATTER = SimpleDateFormat(DATE_FORMAT)
 
 fun String.toSystemDefaultDate(): Date? {

@@ -11,8 +11,8 @@ import uk.co.cerihughes.mgm.android.model.createEventByAlbumName
 import uk.co.cerihughes.mgm.android.repository.MockRepository
 
 class AlbumScoresViewModelTests {
-    lateinit var repository: MockRepository
-    lateinit var viewModel: AlbumScoresViewModel
+    private lateinit var repository: MockRepository
+    private lateinit var viewModel: AlbumScoresViewModel
 
     @Before
     fun setUp() {
