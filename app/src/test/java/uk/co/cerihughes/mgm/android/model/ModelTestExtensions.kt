@@ -48,7 +48,7 @@ fun createAlbum(
     artist: String = "artist",
     score: Float = 5.0f
 ): Album {
-    return Album(name, type == AlbumType.CLASSIC, null, name, artist, score)
+    return Album(name, type == AlbumType.CLASSIC, null, name, artist, score, emptyList())
 }
 
 fun createLocation(locationName: String?): Location? {
