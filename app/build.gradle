@@ -41,8 +41,6 @@ def getGitRevision = { ->
     }
 }
 
-apply plugin: 'realm-android'
-
 android {
     namespace 'uk.co.cerihughes.mgm.android'
     compileSdk 34

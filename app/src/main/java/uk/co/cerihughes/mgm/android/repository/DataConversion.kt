@@ -1,7 +1,5 @@
 package uk.co.cerihughes.mgm.android.repository
 
-import io.realm.RealmList
-import io.realm.RealmModel
 import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.AlbumApiModel
 import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.EventApiModel
 import uk.co.cerihughes.mgm.android.datasource.remote.generated.model.ImageApiModel
@@ -24,11 +22,12 @@ fun String.toSystemDefaultDate(): Date? {
 
 fun EventApiModel.toDataModel(): Event {
     return Event(number,
-        location?.let { apiModel -> apiModel.toDataModel() },
-        date?.let { it.toSystemDefaultDate() },
-        playlist?.let { it.toDataModel() },
-        classicAlbum?.let { it.toDataModel(number) },
-        newAlbum?.let { it.toDataModel(number) })
+        location?.toDataModel(),
+        date?.toSystemDefaultDate(),
+        playlist?.toDataModel(),
+        classicAlbum?.toDataModel(number),
+        newAlbum?.toDataModel(number)
+    )
 }
 
 fun LocationApiModel.toDataModel(): Location {
@@ -45,7 +44,7 @@ fun AlbumApiModel.toDataModel(eventNumber: Int): Album {
         name,
         artist,
         score,
-        safeImages().map { it.toDataModel() }.asRealmList()
+        safeImages().map { it.toDataModel() }
     )
 }
 
@@ -64,18 +63,10 @@ fun PlaylistApiModel.toDataModel(): Playlist {
         spotifyId,
         name,
         owner,
-        safeImages().map { it.toDataModel() }.asRealmList()
+        safeImages().map { it.toDataModel() }
     )
 }
 
 fun ImageApiModel.toDataModel(): Image {
     return Image(url, propertySize)
-}
-
-fun <T : RealmModel> Collection<T>.asRealmList(): RealmList<T> {
-    val realmList = RealmList<T>()
-    for (item in this) {
-        realmList.add(item)
-    }
-    return realmList
 }
