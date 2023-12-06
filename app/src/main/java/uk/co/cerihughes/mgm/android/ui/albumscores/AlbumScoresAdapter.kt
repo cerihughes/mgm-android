@@ -74,15 +74,15 @@ class AlbumScoresAdapter(private val viewModel: AlbumScoresViewModel) :
         }
 
         override fun onClick(v: View?) {
-            var view = v ?: return
-            var context = view.context
+            val view = v ?: return
+            val context = view.context
 
-            if (context.packageManager.isSpotifyInstalled() == false) {
+            if (!context.packageManager.isSpotifyInstalled()) {
                 return
             }
 
             val albumScoreViewModel = viewModel.scoreViewModel(adapterPosition) ?: return
-            var spotifyURL = albumScoreViewModel.spotifyURL() ?: return
+            val spotifyURL = albumScoreViewModel.spotifyURL() ?: return
 
             val intent = Intent(Intent.ACTION_VIEW)
             intent.launchSpotify(context, spotifyURL)

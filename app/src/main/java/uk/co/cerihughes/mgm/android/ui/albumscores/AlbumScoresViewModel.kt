@@ -15,7 +15,7 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
     private var allAlbums: List<Album> = emptyList()
     private var scoreViewModels: List<AlbumScoreViewModel> = emptyList()
 
-    fun isLoaded(): Boolean = allAlbums.size > 0
+    val isLoaded: Boolean get() = allAlbums.isNotEmpty()
 
     override fun setEvents(events: List<Event>) {
         allAlbums = events.map { mutableListOf(it.classicAlbum, it.newAlbum) }
@@ -26,7 +26,7 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
 
         val positions = calculatePositions(allAlbums)
         scoreViewModels =
-            allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions.get(index)) }
+            allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, positions[index]) }
     }
 
     fun numberOfScores(): Int {
@@ -34,16 +34,16 @@ class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(
     }
 
     fun scoreViewModel(index: Int): AlbumScoreViewModel? {
-        try {
-            return scoreViewModels[index]
+        return try {
+            scoreViewModels[index]
         } catch (e: IndexOutOfBoundsException) {
-            return null
+            null
         }
     }
 
     private fun calculatePositions(albums: List<Album>): List<String> {
         val scores = albums.map { it.score ?: 0.0f }
-        var positions: MutableList<String> = mutableListOf()
+        val positions: MutableList<String> = mutableListOf()
         var currentPosition = 0
         var currentValue = 11.0f
         for ((index, value) in scores.iterator().withIndex()) {

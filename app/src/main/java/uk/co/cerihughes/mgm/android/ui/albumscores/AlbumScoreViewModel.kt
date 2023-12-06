@@ -33,11 +33,7 @@ class AlbumScoreViewModel(private val album: Album, private val position: String
         }
     }
 
-    private val award: AlbumAward
-
-    init {
-        award = AlbumAward.createAward(album.score ?: 0.0f)
-    }
+    private val award: AlbumAward = AlbumAward.createAward(album.score ?: 0.0f)
 
     fun albumName(): String {
         return album.name

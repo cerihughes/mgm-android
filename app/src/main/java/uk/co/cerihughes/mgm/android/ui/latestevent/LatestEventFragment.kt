@@ -15,7 +15,7 @@ import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 class LatestEventFragment : Fragment() {
 
     private lateinit var binding: FragmentLatestEventBinding
-    val viewModel: LatestEventViewModel by sharedViewModel()
+    private val viewModel: LatestEventViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -7,8 +7,8 @@ import uk.co.cerihughes.mgm.android.model.createEvent
 import uk.co.cerihughes.mgm.android.repository.MockRepository
 
 class LatestEventViewModelTests {
-    lateinit var repository: MockRepository
-    lateinit var viewModel: LatestEventViewModel
+    private lateinit var repository: MockRepository
+    private lateinit var viewModel: LatestEventViewModel
 
     @Before
     fun setUp() {
@@ -22,7 +22,7 @@ class LatestEventViewModelTests {
         viewModel.setEvents(listOf(event))
 
         Assert.assertEquals(5, viewModel.numberOfItems())
-        Assert.assertEquals(2, viewModel.numberOfEntites())
+        Assert.assertEquals(2, viewModel.numberOfEntities)
 
         Assert.assertEquals("LOCATION", viewModel.headerTitle(0))
         Assert.assertEquals(Pair(0.0, 0.0), viewModel.mapReference())
@@ -37,7 +37,7 @@ class LatestEventViewModelTests {
         viewModel.setEvents(listOf(event))
 
         Assert.assertEquals(3, viewModel.numberOfItems())
-        Assert.assertEquals(2, viewModel.numberOfEntites())
+        Assert.assertEquals(2, viewModel.numberOfEntities)
 
         Assert.assertEquals("LISTENING TO", viewModel.headerTitle(0))
         Assert.assertNotNull(viewModel.eventEntityViewModel(1))
